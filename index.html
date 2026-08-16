@@ -3,286 +3,242 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Lunari Secret Language</title>
+<title>Lunari Ultra</title>
 
 <style>
+*{box-sizing:border-box}
 
-* {
-    box-sizing: border-box;
-}
-
-body {
-    margin: 0;
-    min-height: 100vh;
-    padding: 20px;
+body{
+    margin:0;
+    min-height:100vh;
+    padding:18px;
     background:
-        radial-gradient(circle at 50% 0%, #39235e, #120b20 45%, #050308);
-    color: #eee7ff;
-    font-family: Georgia, serif;
+        radial-gradient(circle at 50% 0%,#402667 0%,#130b20 45%,#050308 100%);
+    color:#eee7ff;
+    font-family:Georgia,serif;
 }
 
-.card {
-    width: min(950px, 100%);
-    margin: auto;
-    padding: 35px;
-    border: 1px solid #a77cff;
-    border-radius: 28px;
-    background: linear-gradient(145deg,#1a1127,#0b0811);
-    box-shadow:
-        0 0 80px #8e5be833,
-        inset 0 0 50px #00000055;
+.card{
+    width:min(1000px,100%);
+    margin:auto;
+    padding:30px;
+    border:1px solid #a77cff;
+    border-radius:28px;
+    background:linear-gradient(145deg,#1a1127,#09070d);
+    box-shadow:0 0 80px #8e5be833,inset 0 0 50px #0005;
 }
 
-h1 {
-    text-align: center;
-    font-size: clamp(38px,8vw,62px);
-    letter-spacing: 8px;
-    margin: 10px 0 5px;
-    color: #eadcff;
-    text-shadow: 0 0 20px #a66cff;
+h1{
+    margin:5px 0;
+    text-align:center;
+    font-size:clamp(38px,8vw,64px);
+    letter-spacing:8px;
+    color:#eadcff;
+    text-shadow:0 0 20px #a66cff;
 }
 
-.subtitle {
-    text-align: center;
-    color: #a997c3;
-    letter-spacing: 3px;
-    margin-bottom: 35px;
+.subtitle{
+    text-align:center;
+    color:#a997c3;
+    letter-spacing:3px;
+    margin-bottom:30px;
 }
 
-.hidden {
-    display: none !important;
+h2{
+    text-align:center;
+    color:#cbb0ff;
+    letter-spacing:2px;
 }
 
-.section {
-    margin-top: 25px;
-    padding: 25px;
-    border: 1px solid #38264e;
-    border-radius: 18px;
-    background: #08060daa;
+.section{
+    margin-top:22px;
+    padding:22px;
+    border:1px solid #38264e;
+    border-radius:18px;
+    background:#08060daa;
 }
 
-h2 {
-    text-align: center;
-    color: #cbb0ff;
-    letter-spacing: 2px;
+.hidden{display:none!important}
+
+.note{
+    color:#9d8eac;
+    font-size:14px;
+    line-height:1.6;
+    text-align:center;
 }
 
-.note {
-    color: #9485aa;
-    font-size: 14px;
-    line-height: 1.6;
-    text-align: center;
+input,textarea{
+    width:100%;
+    padding:14px;
+    border:1px solid #513a72;
+    border-radius:11px;
+    background:#08060d;
+    color:#fff;
+    font-size:16px;
 }
 
-input,
-textarea {
-    width: 100%;
-    padding: 14px;
-    border: 1px solid #513a72;
-    border-radius: 11px;
-    background: #08060d;
-    color: white;
-    font-size: 16px;
+textarea{
+    min-height:110px;
+    resize:vertical;
 }
 
-textarea {
-    min-height: 110px;
-    resize: vertical;
+button{
+    width:100%;
+    margin-top:10px;
+    padding:14px;
+    border:0;
+    border-radius:11px;
+    background:linear-gradient(90deg,#7040c4,#a36aff);
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
 }
 
-input:focus,
-textarea:focus {
-    outline: none;
-    border-color: #aa7dff;
+button:hover{
+    filter:brightness(1.15);
 }
 
-button {
-    width: 100%;
-    margin-top: 10px;
-    padding: 14px;
-    border: 0;
-    border-radius: 11px;
-    background: linear-gradient(90deg,#7040c4,#a36aff);
-    color: white;
-    font-weight: bold;
-    font-size: 15px;
-    cursor: pointer;
+.secondary{
+    background:#251738;
+    border:1px solid #60477e;
 }
 
-button:hover {
-    filter: brightness(1.15);
+.error{
+    min-height:24px;
+    margin-top:8px;
+    text-align:center;
+    color:#ff718d;
 }
 
-.secondary {
-    background: #251738;
-    border: 1px solid #60477e;
+.result{
+    min-height:55px;
+    margin-top:12px;
+    padding:15px;
+    border-radius:10px;
+    background:#05040a;
+    color:#dfcaff;
+    font-family:Arial,sans-serif;
+    font-size:20px;
+    white-space:pre-wrap;
+    word-break:break-word;
 }
 
-.error {
-    min-height: 25px;
-    margin-top: 8px;
-    text-align: center;
-    color: #ff718d;
+.big{
+    text-align:center;
+    font-size:clamp(28px,7vw,55px);
+    letter-spacing:5px;
+    line-height:1.5;
 }
 
-.result {
-    min-height: 55px;
-    margin-top: 12px;
-    padding: 15px;
-    border-radius: 10px;
-    background: #05040a;
-    color: #dfcaff;
-    font-family: Arial,sans-serif;
-    font-size: 20px;
-    word-break: break-word;
-    white-space: pre-wrap;
+.upside{
+    display:inline-block;
+    transform:rotate(180deg);
 }
 
-.alphabet {
-    display: grid;
-    grid-template-columns:
-        repeat(auto-fit,minmax(100px,1fr));
-    gap: 9px;
+.alphabet{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(95px,1fr));
+    gap:8px;
 }
 
-.letter {
-    padding: 12px;
-    border: 1px solid #332344;
-    border-radius: 11px;
-    background: #171021;
-    text-align: center;
+.letter{
+    padding:11px;
+    text-align:center;
+    border:1px solid #332344;
+    border-radius:10px;
+    background:#171021;
 }
 
-.letter .normal {
-    color: #a17dc9;
-    font-weight: bold;
+.letter .normal{
+    color:#a17dc9;
+    font-weight:bold;
 }
 
-.letter .lunari {
-    margin-top: 7px;
-    color: #eadcff;
-    font-family: Arial,sans-serif;
-    font-size: 27px;
+.letter .lunari{
+    margin-top:6px;
+    font-size:28px;
+    font-family:Arial,sans-serif;
 }
 
-.upside {
-    display: inline-block;
-    transform: rotate(180deg);
+video{
+    width:100%;
+    max-height:520px;
+    border-radius:14px;
+    background:#000;
+    border:1px solid #493563;
 }
 
-video {
-    width: 100%;
-    max-height: 500px;
-    border-radius: 15px;
-    background: #000;
-    border: 1px solid #493563;
+canvas{display:none}
+
+.preview{
+    min-height:150px;
+    margin-top:15px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    overflow:hidden;
+    border:2px dashed #55406e;
+    border-radius:15px;
+    background:#06040a;
+    color:#766889;
 }
 
-canvas {
-    display: none;
+.preview img{
+    width:100%;
+    max-height:500px;
+    object-fit:contain;
 }
 
-.preview {
-    min-height: 150px;
-    margin-top: 15px;
-    border: 2px dashed #55406e;
-    border-radius: 15px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-    color: #766889;
-    background: #06040a;
+.grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
 }
 
-.preview img {
-    max-width: 100%;
-    max-height: 450px;
+.status{
+    margin-top:12px;
+    text-align:center;
+    color:#bda5dc;
 }
 
-.grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 15px;
+.progress{
+    height:8px;
+    margin-top:10px;
+    overflow:hidden;
+    border-radius:10px;
+    background:#21182d;
 }
 
-.status {
-    margin-top: 15px;
-    text-align: center;
-    color: #bda5dc;
+.bar{
+    width:0;
+    height:100%;
+    background:linear-gradient(90deg,#7140c4,#c39cff);
+    transition:width .2s;
 }
 
-.progress {
-    height: 8px;
-    margin-top: 10px;
-    overflow: hidden;
-    border-radius: 10px;
-    background: #21182d;
+.best{
+    border-color:#55c88a;
 }
 
-.progressBar {
-    width: 0%;
-    height: 100%;
-    background:
-        linear-gradient(90deg,#7140c4,#c39cff);
-    transition: width .2s;
+.alt{
+    margin-top:8px;
+    padding:10px;
+    border:1px solid #38264e;
+    border-radius:9px;
+    background:#100b18;
 }
 
-.candidate {
-    margin-top: 10px;
-    padding: 12px;
-    border: 1px solid #38264e;
-    border-radius: 10px;
-    background: #100b18;
+.confidence{
+    margin-top:10px;
+    text-align:center;
+    color:#9c8cab;
+    font-size:13px;
 }
 
-.candidate strong {
-    color: #c8a7ff;
+@media(max-width:700px){
+    .card{padding:18px}
+    .grid{grid-template-columns:1fr}
 }
-
-.good {
-    border-color: #55c88a;
-}
-
-.warning {
-    border-color: #c99a45;
-}
-
-.instructions {
-    padding: 15px;
-    border-radius: 12px;
-    background: #120d1b;
-    color: #a998bb;
-    line-height: 1.7;
-}
-
-.bigLunari {
-    text-align: center;
-    font-family: Arial,sans-serif;
-    font-size: clamp(28px,7vw,55px);
-    letter-spacing: 5px;
-    line-height: 1.5;
-}
-
-.confidence {
-    text-align: center;
-    margin-top: 10px;
-    color: #8f7fa6;
-    font-size: 13px;
-}
-
-@media(max-width:700px) {
-
-    .card {
-        padding: 20px;
-    }
-
-    .grid {
-        grid-template-columns: 1fr;
-    }
-
-}
-
 </style>
 </head>
 
@@ -291,33 +247,29 @@ canvas {
 <div class="card">
 
 <h1>☾ LUNARI ☽</h1>
-
-<div class="subtitle">
-THE UPSIDE-DOWN SECRET LANGUAGE
-</div>
+<div class="subtitle">ULTRA SECRET LANGUAGE</div>
 
 
-<!-- PASSWORD -->
+<!-- LOGIN -->
 
 <div id="login">
 
 <div class="section">
 
-<h2>♜ THE CARD IS SEALED</h2>
+<h2>♜ SEALED</h2>
 
 <p class="note">
-Enter the secret word to open the Lunari system.
+Enter the secret word.
 </p>
 
 <input
     id="password"
     type="password"
     placeholder="Secret word"
-    autocomplete="off"
 >
 
 <button onclick="unlock()">
-UNSEAL THE CARD
+UNSEAL LUNARI
 </button>
 
 <div id="loginError" class="error"></div>
@@ -332,53 +284,6 @@ UNSEAL THE CARD
 <div id="main" class="hidden">
 
 
-<!-- HOW IT WORKS -->
-
-<div class="section">
-
-<h2>HOW IT WORKS</h2>
-
-<div class="instructions">
-
-<b>1.</b>
-Type an English message.
-
-<br>
-
-<b>2.</b>
-Lunari converts it to scrambled letters.
-
-<br>
-
-<b>3.</b>
-The letters are displayed upside down.
-
-<br>
-
-<b>4.</b>
-Write the upside-down Lunari.
-
-<br>
-
-<b>5.</b>
-Scan it with the camera.
-
-<br>
-
-<b>6.</b>
-The scanner tries multiple orientations,
-image filters and OCR settings.
-
-<br>
-
-<b>7.</b>
-The best result is automatically decoded.
-
-</div>
-
-</div>
-
-
 <!-- ALPHABET -->
 
 <div class="section">
@@ -390,7 +295,7 @@ The best result is automatically decoded.
 </div>
 
 
-<!-- ENCODE -->
+<!-- ENGLISH TO LUNARI -->
 
 <div class="section">
 
@@ -398,42 +303,35 @@ The best result is automatically decoded.
 
 <textarea
     id="englishInput"
-    placeholder="Type your secret message..."
+    placeholder="Type your English message..."
 ></textarea>
 
 <button onclick="encodeMessage()">
-CONVERT TO LUNARI
+CONVERT
 </button>
 
 <div
     id="lunariOutput"
-    class="result bigLunari"
+    class="result big"
 ></div>
 
 <p class="note">
-Write the displayed Lunari upside down.
+The displayed letters are rotated 180°. Write them that way.
 </p>
 
 </div>
 
 
-<!-- CAMERA -->
+<!-- SCANNER -->
 
 <div class="section">
 
-<h2>📷 SCAN LUNARI</h2>
+<h2>📷 LUNARI SCANNER</h2>
 
 <p class="note">
-
-The scanner automatically tries:
-
-<br>
-
-180° rotation • normal orientation •
-mirrored orientation • grayscale •
-high contrast • inverted contrast •
-multiple OCR layouts • reversed text
-
+The scanner automatically tries multiple orientations,
+mirroring methods, image filters, OCR modes,
+character corrections and text directions.
 </p>
 
 <div class="grid">
@@ -466,8 +364,6 @@ STOP CAMERA
 
 </div>
 
-<br>
-
 <video
     id="camera"
     autoplay
@@ -478,29 +374,26 @@ STOP CAMERA
 <canvas id="canvas"></canvas>
 
 <div id="preview" class="preview">
-No image captured.
+No image.
 </div>
 
 <button onclick="captureImage()">
-CAPTURE + ROTATE
+CAPTURE
 </button>
 
-<button onclick="runSmartOCR()">
-🤖 SMART RECOGNITION
+<button onclick="smartScan()">
+🤖 SCAN LUNARI
 </button>
 
 <div
-    id="ocrStatus"
+    id="status"
     class="status"
 >
 Ready.
 </div>
 
 <div class="progress">
-<div
-    id="progressBar"
-    class="progressBar"
-></div>
+<div id="bar" class="bar"></div>
 </div>
 
 </div>
@@ -513,8 +406,8 @@ Ready.
 <h2>✨ BEST RESULT</h2>
 
 <div
-    id="bestResult"
-    class="result"
+    id="best"
+    class="result best"
 >
 Nothing recognized yet.
 </div>
@@ -527,7 +420,7 @@ Nothing recognized yet.
 </div>
 
 
-<!-- OCR TEXT -->
+<!-- OCR -->
 
 <div class="section">
 
@@ -535,7 +428,7 @@ Nothing recognized yet.
 
 <textarea
     id="ocrText"
-    placeholder="OCR result..."
+    placeholder="Recognized Lunari..."
 ></textarea>
 
 <button onclick="decodeOCR()">
@@ -554,22 +447,15 @@ Nothing recognized yet.
 
 <div class="section">
 
-<h2>✏️ MANUAL CORRECTION</h2>
-
-<p class="note">
-
-If one or two characters were recognized incorrectly,
-change them here and decode again.
-
-</p>
+<h2>✏️ MANUAL DECODER</h2>
 
 <textarea
-    id="manualInput"
-    placeholder="Enter Lunari letters..."
+    id="manual"
+    placeholder="Enter Lunari manually..."
 ></textarea>
 
 <button onclick="decodeManual()">
-DECODE MANUALLY
+DECODE
 </button>
 
 <div
@@ -584,7 +470,7 @@ DECODE MANUALLY
     class="secondary"
     onclick="location.reload()"
 >
-LOCK LUNARI
+LOCK
 </button>
 
 </div>
@@ -592,10 +478,7 @@ LOCK LUNARI
 </div>
 
 
-<!-- TESSERACT -->
-
 <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
-
 
 <script>
 
@@ -603,31 +486,18 @@ LOCK LUNARI
    LUNARI CIPHER
 ===================================================== */
 
-const normalAlphabet =
-    "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+const normal =
+"ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
-const lunariAlphabet =
-    "QWERTYUIOPASDFGHJKLZXCVBNM";
+const lunari =
+"QWERTYUIOPASDFGHJKLZXCVBNM";
 
-const encodeMap = {};
-const decodeMap = {};
+const encodeMap={};
+const decodeMap={};
 
-for (
-    let i = 0;
-    i < 26;
-    i++
-) {
-
-    encodeMap[
-        normalAlphabet[i]
-    ] =
-        lunariAlphabet[i];
-
-    decodeMap[
-        lunariAlphabet[i]
-    ] =
-        normalAlphabet[i];
-
+for(let i=0;i<26;i++){
+    encodeMap[normal[i]]=lunari[i];
+    decodeMap[lunari[i]]=normal[i];
 }
 
 
@@ -635,18 +505,14 @@ for (
    PASSWORD
 ===================================================== */
 
-const SECRET_PASSWORD = "Moonlight";
+const PASSWORD="Moonlight";
 
-function unlock() {
+function unlock(){
 
-    const entered =
-        document
-            .getElementById("password")
-            .value;
+    const value=
+        document.getElementById("password").value;
 
-    if (
-        entered === SECRET_PASSWORD
-    ) {
+    if(value===PASSWORD){
 
         document
             .getElementById("login")
@@ -658,62 +524,53 @@ function unlock() {
             .classList
             .remove("hidden");
 
-    }
-
-    else {
+    }else{
 
         document
             .getElementById("loginError")
-            .textContent =
+            .textContent=
             "Incorrect secret word.";
 
     }
 
 }
 
+document
+.getElementById("password")
+.addEventListener("keydown",e=>{
+    if(e.key==="Enter") unlock();
+});
+
 
 /* =====================================================
    ALPHABET
 ===================================================== */
 
-function buildAlphabet() {
+function buildAlphabet(){
 
-    const box =
-        document
-            .getElementById("alphabet");
+    const box=
+        document.getElementById("alphabet");
 
-    for (
-        let i = 0;
-        i < 26;
-        i++
-    ) {
+    for(let i=0;i<26;i++){
 
-        const div =
+        const div=
             document.createElement("div");
 
-        div.className =
-            "letter";
+        div.className="letter";
 
-        div.innerHTML = `
-
+        div.innerHTML=`
             <div class="normal">
-                ${normalAlphabet[i]}
+                ${normal[i]}
             </div>
-
             <div class="lunari">
-
                 <span class="upside">
-                    ${lunariAlphabet[i]}
+                    ${lunari[i]}
                 </span>
-
             </div>
-
         `;
 
         box.appendChild(div);
-
     }
-
 }
 
 buildAlphabet();
@@ -723,31 +580,23 @@ buildAlphabet();
    ENCODE
 ===================================================== */
 
-function encodeMessage() {
+function encodeMessage(){
 
-    const input =
+    const input=
         document
-            .getElementById("englishInput")
-            .value
-            .toUpperCase();
+        .getElementById("englishInput")
+        .value
+        .toUpperCase();
 
-    let output = "";
+    let output="";
 
-    for (
-        const char of input
-    ) {
-
-        output +=
-            encodeMap[char] ||
-            char;
-
+    for(const c of input){
+        output += encodeMap[c] || c;
     }
 
     document
         .getElementById("lunariOutput")
-        .textContent =
-        output;
-
+        .textContent=output;
 }
 
 
@@ -755,426 +604,352 @@ function encodeMessage() {
    CAMERA
 ===================================================== */
 
-let stream = null;
+let stream=null;
 
-const camera =
+const camera=
     document.getElementById("camera");
 
-async function startCamera() {
+async function startCamera(){
 
-    try {
+    try{
 
-        stream =
-            await navigator
-                .mediaDevices
-                .getUserMedia({
-
-                    video: {
-                        facingMode: {
-                            ideal: "environment"
-                        }
+        stream=
+            await navigator.mediaDevices
+            .getUserMedia({
+                video:{
+                    facingMode:{
+                        ideal:"environment"
                     },
+                    width:{
+                        ideal:1920
+                    },
+                    height:{
+                        ideal:1080
+                    }
+                },
+                audio:false
+            });
 
-                    audio: false
+        camera.srcObject=stream;
 
-                });
+        camera.classList.remove("hidden");
 
-        camera.srcObject =
-            stream;
+        setStatus("Camera ready.");
 
-        camera.classList
-            .remove("hidden");
+    }catch(e){
 
         setStatus(
-            "Camera ready."
+            "Camera unavailable. Upload a picture instead."
         );
 
     }
-
-    catch(error) {
-
-        setStatus(
-            "Camera unavailable. Upload an image instead."
-        );
-
-    }
-
 }
 
+function stopCamera(){
 
-function stopCamera() {
-
-    if (stream) {
+    if(stream){
 
         stream
-            .getTracks()
-            .forEach(
-                track =>
-                    track.stop()
-            );
+        .getTracks()
+        .forEach(t=>t.stop());
 
-        stream = null;
-
+        stream=null;
     }
 
-    camera.classList
-        .add("hidden");
-
+    camera.classList.add("hidden");
 }
 
 
 /* =====================================================
-   CANVAS
+   DRAW / ROTATE
 ===================================================== */
 
-function drawRotatedImage(
+function drawImage(
     source,
-    rotation,
-    mirror = false
-) {
+    rotation=0,
+    mirror=false
+){
 
-    const canvas =
-        document
-            .getElementById("canvas");
+    const canvas=
+        document.getElementById("canvas");
 
-    const width =
+    const w=
         source.videoWidth ||
         source.naturalWidth ||
         source.width;
 
-    const height =
+    const h=
         source.videoHeight ||
         source.naturalHeight ||
         source.height;
 
-    canvas.width =
-        width;
+    canvas.width=w;
+    canvas.height=h;
 
-    canvas.height =
-        height;
-
-    const ctx =
+    const ctx=
         canvas.getContext("2d");
 
     ctx.save();
 
-    ctx.translate(
-        width / 2,
-        height / 2
-    );
+    ctx.translate(w/2,h/2);
 
     ctx.rotate(
-        rotation * Math.PI / 180
+        rotation*Math.PI/180
     );
 
-    if (mirror) {
+    if(mirror){
         ctx.scale(-1,1);
     }
 
     ctx.drawImage(
         source,
-        -width / 2,
-        -height / 2,
-        width,
-        height
+        -w/2,
+        -h/2,
+        w,
+        h
     );
 
     ctx.restore();
 
     return canvas;
-
 }
 
 
-/* =====================================================
-   CAPTURE
-===================================================== */
+function captureImage(){
 
-function captureImage() {
-
-    if (
-        !stream ||
-        camera.videoWidth === 0
-    ) {
+    if(!stream){
 
         setStatus(
             "Start the camera first."
         );
 
         return;
-
     }
 
-    drawRotatedImage(
+    drawImage(
         camera,
         180,
         false
     );
 
-    showCanvasPreview();
+    showPreview();
 
     setStatus(
-        "Captured and rotated 180°."
+        "Captured. Ready to scan."
     );
-
 }
 
 
 /* =====================================================
-   IMAGE UPLOAD
+   UPLOAD
 ===================================================== */
 
 document
-    .getElementById("imageInput")
-    .addEventListener(
-        "change",
-        function() {
+.getElementById("imageInput")
+.addEventListener("change",function(){
 
-            const file =
-                this.files[0];
+    const file=this.files[0];
 
-            if (!file) return;
+    if(!file)return;
 
-            const reader =
-                new FileReader();
+    const reader=
+        new FileReader();
 
-            reader.onload =
-                event => {
+    reader.onload=e=>{
 
-                    const image =
-                        new Image();
+        const img=
+            new Image();
 
-                    image.onload =
-                        () => {
+        img.onload=()=>{
 
-                            drawRotatedImage(
-                                image,
-                                180,
-                                false
-                            );
+            drawImage(
+                img,
+                180,
+                false
+            );
 
-                            showCanvasPreview();
+            showPreview();
 
-                            setStatus(
-                                "Image loaded and rotated."
-                            );
+            setStatus(
+                "Image loaded."
+            );
+        };
 
-                        };
+        img.src=e.target.result;
+    };
 
-                    image.src =
-                        event.target.result;
-
-                };
-
-            reader.readAsDataURL(file);
-
-        }
-    );
+    reader.readAsDataURL(file);
+});
 
 
 /* =====================================================
    PREVIEW
 ===================================================== */
 
-function showCanvasPreview() {
+function showPreview(){
 
-    const canvas =
-        document
-            .getElementById("canvas");
-
-    const image =
-        canvas.toDataURL(
-            "image/png"
-        );
+    const canvas=
+        document.getElementById("canvas");
 
     document
         .getElementById("preview")
-        .innerHTML =
-        `<img src="${image}">`;
-
+        .innerHTML=
+        `<img src="${canvas.toDataURL("image/png")}">`;
 }
 
 
 /* =====================================================
-   IMAGE FILTERS
+   IMAGE VARIANTS
 ===================================================== */
 
-function makeVariant(
-    sourceCanvas,
-    type,
-    rotation = 0,
-    mirror = false
-) {
+function variant(
+    source,
+    rotation,
+    mirror,
+    filter
+){
 
-    const canvas =
-        document
-            .createElement("canvas");
+    const canvas=
+        document.createElement("canvas");
 
-    const width =
-        sourceCanvas.width;
+    const w=source.width;
+    const h=source.height;
 
-    const height =
-        sourceCanvas.height;
+    canvas.width=w;
+    canvas.height=h;
 
-    canvas.width =
-        width;
-
-    canvas.height =
-        height;
-
-    const ctx =
+    const ctx=
         canvas.getContext("2d");
 
     ctx.save();
 
-    ctx.translate(
-        width / 2,
-        height / 2
-    );
+    ctx.translate(w/2,h/2);
 
     ctx.rotate(
-        rotation * Math.PI / 180
+        rotation*Math.PI/180
     );
 
-    if (mirror) {
+    if(mirror){
         ctx.scale(-1,1);
     }
 
     ctx.drawImage(
-        sourceCanvas,
-        -width / 2,
-        -height / 2,
-        width,
-        height
+        source,
+        -w/2,
+        -h/2,
+        w,
+        h
     );
 
     ctx.restore();
 
 
-    const image =
+    const data=
         ctx.getImageData(
-            0,
-            0,
-            width,
-            height
+            0,0,w,h
         );
 
-    const data =
-        image.data;
+    const p=data.data;
 
 
-    if (
-        type === "gray" ||
-        type === "contrast" ||
-        type === "binary" ||
-        type === "invert"
-    ) {
+    for(
+        let i=0;
+        i<p.length;
+        i+=4
+    ){
 
-        for (
-            let i = 0;
-            i < data.length;
-            i += 4
-        ) {
+        let r=p[i];
+        let g=p[i+1];
+        let b=p[i+2];
 
-            let r =
-                data[i];
-
-            let g =
-                data[i + 1];
-
-            let b =
-                data[i + 2];
+        let gray=
+            .299*r+
+            .587*g+
+            .114*b;
 
 
-            let gray =
-                0.299 * r +
-                0.587 * g +
-                0.114 * b;
+        if(filter==="gray"){
 
-
-            if (
-                type === "gray"
-            ) {
-
-                r = g = b =
-                    gray;
-
-            }
-
-
-            if (
-                type === "contrast"
-            ) {
-
-                gray =
-                    (gray - 128) *
-                    2.2 +
-                    128;
-
-                gray =
-                    Math.max(
-                        0,
-                        Math.min(
-                            255,
-                            gray
-                        )
-                    );
-
-                r = g = b =
-                    gray;
-
-            }
-
-
-            if (
-                type === "binary"
-            ) {
-
-                const value =
-                    gray < 150
-                        ? 0
-                        : 255;
-
-                r = g = b =
-                    value;
-
-            }
-
-
-            if (
-                type === "invert"
-            ) {
-
-                gray =
-                    255 - gray;
-
-                r = g = b =
-                    gray;
-
-            }
-
-
-            data[i] =
-                r;
-
-            data[i + 1] =
-                g;
-
-            data[i + 2] =
-                b;
+            r=g=b=gray;
 
         }
 
-        ctx.putImageData(
-            image,
-            0,
-            0
-        );
 
+        if(filter==="contrast"){
+
+            gray=
+                (gray-128)*2.5+128;
+
+            gray=
+                Math.max(
+                    0,
+                    Math.min(
+                        255,
+                        gray
+                    )
+                );
+
+            r=g=b=gray;
+        }
+
+
+        if(filter==="threshold"){
+
+            const v=
+                gray<145?0:255;
+
+            r=g=b=v;
+        }
+
+
+        if(filter==="threshold2"){
+
+            const v=
+                gray<190?0:255;
+
+            r=g=b=v;
+        }
+
+
+        if(filter==="invert"){
+
+            gray=255-gray;
+
+            r=g=b=gray;
+        }
+
+
+        if(filter==="soft"){
+
+            gray=
+                (gray-128)*1.5+128;
+
+            gray=
+                Math.max(
+                    0,
+                    Math.min(
+                        255,
+                        gray
+                    )
+                );
+
+            r=g=b=gray;
+        }
+
+
+        p[i]=r;
+        p[i+1]=g;
+        p[i+2]=b;
     }
 
-    return canvas;
 
+    ctx.putImageData(
+        data,
+        0,
+        0
+    );
+
+    return canvas;
 }
 
 
@@ -1182,7 +957,7 @@ function makeVariant(
    OCR CLEANUP
 ===================================================== */
 
-function cleanOCR(text) {
+function clean(text){
 
     return text
         .toUpperCase()
@@ -1197,583 +972,405 @@ function cleanOCR(text) {
             " "
         )
         .trim();
-
 }
 
 
 /* =====================================================
-   OCR COMMON ERROR CORRECTION
+   OCR CORRECTIONS
 ===================================================== */
 
-function correctOCR(text) {
+function correct(text){
 
-    let result =
-        text.toUpperCase();
+    return text
+        .toUpperCase()
 
-
-    /*
-       Common OCR mistakes.
-
-       Only correct letters when they
-       appear in contexts where a mistake
-       is especially likely.
-    */
-
-
-    result =
-        result
         .replace(/0/g,"O")
         .replace(/1/g,"I")
         .replace(/5/g,"S")
-        .replace(/8/g,"B");
-
-
-    return result;
-
+        .replace(/8/g,"B")
+        .replace(/\|/g,"I");
 }
 
 
 /* =====================================================
-   REVERSE WORD ORDER
+   REVERSE
 ===================================================== */
 
-function reverseWords(text) {
+function reverseCharacters(text){
 
     return text
-        .split(" ")
+        .split("")
+        .reverse()
+        .join("");
+}
+
+
+function reverseWords(text){
+
+    return text
+        .split(/\s+/)
         .map(
-            word =>
-                word
-                    .split("")
-                    .reverse()
-                    .join("")
+            word=>
+                reverseCharacters(word)
         )
         .join(" ");
-
 }
 
 
 /* =====================================================
-   DECODE LUNARI
+   DECODE
 ===================================================== */
 
-function decodeString(text) {
+function decode(text){
 
-    let result = "";
+    let result="";
 
-    for (
-        const char of text
-    ) {
+    for(const c of text){
 
         result +=
-            decodeMap[char] ||
-            char;
+            decodeMap[c] ||
+            c;
 
     }
 
     return result;
-
 }
 
 
 /* =====================================================
    ENGLISH SCORING
-
-   This isn't another AI model.
-   It is a correction layer that helps
-   choose between OCR candidates.
 ===================================================== */
 
-const commonWords = [
+const words=new Set([
 
-    "THE",
-    "AND",
-    "YOU",
-    "THAT",
-    "THIS",
-    "HELLO",
-    "WORLD",
-    "IS",
-    "ARE",
-    "TO",
-    "OF",
-    "IN",
-    "IT",
-    "SECRET",
-    "MESSAGE",
-    "ME",
-    "MY",
-    "YOUR",
-    "WE",
-    "CAN",
-    "READ",
-    "LUNARI",
-    "CODE",
-    "KEY",
-    "OPEN",
-    "CLOSE",
-    "YES",
-    "NO",
-    "NOT",
-    "FOR",
-    "WITH",
-    "ON",
-    "AT",
-    "AS",
-    "BE",
-    "HAVE",
-    "HAS",
-    "WAS",
-    "WERE",
-    "ONE",
-    "TWO",
-    "GO",
-    "SEE",
-    "LOOK",
-    "COME",
-    "HELP",
-    "MEET",
-    "ME",
-    "HERE",
-    "THERE"
+"THE","AND","YOU","THAT","THIS","HELLO",
+"WORLD","SECRET","MESSAGE","LUNARI","CODE",
+"IS","ARE","TO","OF","IN","IT","FOR","WITH",
+"ON","AT","AS","BE","HAVE","HAS","WAS","WERE",
+"YOUR","MY","ME","WE","CAN","READ","WRITE",
+"OPEN","CLOSE","YES","NO","NOT","ONE","TWO",
+"THREE","GO","SEE","LOOK","HERE","THERE",
+"COME","HELP","KEY","CARD","LANGUAGE",
+"GOOD","BAD","THANK","THANKS","PLEASE",
+"WHAT","WHEN","WHERE","WHO","WHY","HOW",
+"SECRET","HIDDEN","DOOR","MOON","LIGHT"
 
+]);
+
+
+const pairs=[
+"TH","HE","IN","ER","AN","RE","ON","AT",
+"EN","ND","TI","ES","OR","TE","OF","ED",
+"IS","IT","AL","AR","ST","TO","NT","NG",
+"SE","HA","AS","OU","IO","LE","VE","CO",
+"ME","DE","HI","RI","RO","IC","NE","EA"
 ];
 
 
-const commonPairs = [
+function scoreEnglish(text){
 
-    "TH",
-    "HE",
-    "IN",
-    "ER",
-    "AN",
-    "RE",
-    "ON",
-    "AT",
-    "EN",
-    "ND",
-    "TI",
-    "ES",
-    "OR",
-    "TE",
-    "OF",
-    "ED",
-    "IS",
-    "IT",
-    "AL",
-    "AR",
-    "ST",
-    "TO",
-    "NT",
-    "NG",
-    "SE",
-    "HA",
-    "AS",
-    "OU",
-    "IO",
-    "LE",
-    "VE",
-    "CO",
-    "ME",
-    "DE",
-    "HI",
-    "RI",
-    "RO",
-    "IC",
-    "NE",
-    "EA"
-
-];
-
-
-function englishScore(text) {
-
-    const clean =
+    const cleanText=
         text
-            .toUpperCase()
-            .replace(
-                /[^A-Z ]/g,
-                " "
-            );
+        .toUpperCase()
+        .replace(/[^A-Z ]/g," ");
 
-    const words =
-        clean.split(/\s+/)
+    const ws=
+        cleanText
+        .split(/\s+/)
         .filter(Boolean);
 
-    let score = 0;
+    let score=0;
 
 
-    for (
-        const word of words
-    ) {
+    for(const word of ws){
 
-        if (
-            commonWords
-                .includes(word)
-        ) {
-
-            score += 25;
-
+        if(words.has(word)){
+            score+=30;
         }
 
-
-        if (
-            word.length >= 3 &&
-            word.length <= 12
-        ) {
-
-            score += 1;
-
+        if(
+            word.length>=2 &&
+            word.length<=15
+        ){
+            score+=1;
         }
-
     }
 
 
-    for (
-        const pair of commonPairs
-    ) {
+    for(const pair of pairs){
 
-        let position = 0;
+        let index=0;
 
-        while (
-            (
-                position =
-                clean.indexOf(
+        while(
+            (index=
+                cleanText.indexOf(
                     pair,
-                    position
+                    index
                 )
-            ) !== -1
-        ) {
+            )!==-1
+        ){
 
-            score += 1;
-
-            position += 1;
+            score+=1;
+            index++;
 
         }
+    }
 
+
+    const letters=
+        cleanText
+        .replace(/[^A-Z]/g,"");
+
+
+    if(letters.length>3){
+
+        const vowels=
+            letters.match(/[AEIOU]/g);
+
+        if(vowels){
+
+            const ratio=
+                vowels.length/
+                letters.length;
+
+            if(
+                ratio>.20 &&
+                ratio<.60
+            ){
+                score+=8;
+            }
+        }
     }
 
 
     /*
-       English usually contains vowels.
+       Penalize very unlikely English
+       letter combinations.
     */
 
-    const letters =
-        clean.replace(
-            /[^A-Z]/g,
-            ""
-        );
+    const bad=[
+        "QW","QG","QZ","JQ",
+        "QJ","ZX","ZQ","VQ",
+        "JJ","QQ","XX"
+    ];
 
-    if (
-        letters.length > 3
-    ) {
+    for(const pair of bad){
 
-        const vowels =
-            letters.match(
-                /[AEIOU]/g
-            );
-
-        if (vowels) {
-
-            const ratio =
-                vowels.length /
-                letters.length;
-
-            if (
-                ratio > .20 &&
-                ratio < .60
-            ) {
-
-                score += 4;
-
-            }
-
+        if(cleanText.includes(pair)){
+            score-=5;
         }
-
     }
 
 
     return score;
-
 }
 
 
 /* =====================================================
-   GENERATE OCR CANDIDATES
+   CANDIDATES
 ===================================================== */
 
-function generateCandidates(
-    text
-) {
+function candidates(text){
 
-    text =
-        cleanOCR(text);
+    text=clean(text);
 
-    const candidates =
-        new Map();
+    const list=[];
+
+    function add(value,reason){
+
+        value=clean(value);
+
+        if(!value)return;
+
+        const fixed=correct(value);
+
+        const forms=[
+            [value,reason],
+            [fixed,reason+" + correction"],
+            [
+                reverseCharacters(value),
+                reason+" + reverse"
+            ],
+            [
+                reverseCharacters(fixed),
+                reason+" + correction + reverse"
+            ],
+            [
+                reverseWords(value),
+                reason+" + word reverse"
+            ],
+            [
+                reverseWords(fixed),
+                reason+" + correction + word reverse"
+            ]
+        ];
 
 
-    function add(
-        lunari,
-        reason
-    ) {
+        for(const [lunariText,why] of forms){
 
-        lunari =
-            cleanOCR(lunari);
+            const english=
+                decode(lunariText);
 
-        if (!lunari)
-            return;
+            list.push({
 
-        const english =
-            decodeString(
-                lunari
-            );
+                lunari:
+                    lunariText,
 
-        const score =
-            englishScore(
-                english
-            );
+                english,
 
-        const key =
-            english;
+                reason:why,
 
-        if (
-            !candidates.has(key) ||
-            candidates.get(key).score <
-            score
-        ) {
+                score:
+                    scoreEnglish(
+                        english
+                    )
 
-            candidates.set(
-                key,
-                {
-                    lunari,
-                    english,
-                    score,
-                    reason
-                }
-            );
-
+            });
         }
-
     }
 
 
     add(
         text,
-        "normal"
+        "OCR"
     );
 
-
-    add(
-        correctOCR(text),
-        "OCR correction"
-    );
-
-
-    add(
-        reverseWords(text),
-        "reversed characters"
-    );
-
-
-    add(
-        reverseWords(
-            correctOCR(text)
-        ),
-        "reversed + corrected"
-    );
-
-
-    /*
-       Try reversing the entire OCR result.
-    */
-
-    add(
-        text
-            .split("")
-            .reverse()
-            .join(""),
-        "fully reversed"
-    );
-
-
-    add(
-        correctOCR(
-            text
-                .split("")
-                .reverse()
-                .join("")
-        ),
-        "fully reversed + corrected"
-    );
-
-
-    return [
-        ...candidates.values()
-    ]
-    .sort(
-        (a,b) =>
-            b.score -
-            a.score
-    );
-
+    return list;
 }
 
 
 /* =====================================================
-   SMART OCR
+   SMART SCANNER
 ===================================================== */
 
-async function runSmartOCR() {
+async function smartScan(){
 
-    const source =
-        document
-            .getElementById("canvas");
+    const source=
+        document.getElementById("canvas");
 
-
-    if (
-        source.width === 0 ||
-        source.height === 0
-    ) {
+    if(
+        !source.width ||
+        !source.height
+    ){
 
         setStatus(
             "Capture or upload an image first."
         );
 
         return;
-
     }
 
 
     setStatus(
-        "Starting smart recognition..."
+        "Building recognition attempts..."
     );
 
 
-    const variants = [];
+    const variants=[];
 
-
-    /*
-       Try multiple orientations.
-    */
-
-    const rotations = [
+    const rotations=[
         0,
         180
     ];
 
-
-    /*
-       Try normal and mirrored versions.
-    */
-
-    for (
-        const rotation of rotations
-    ) {
-
-        variants.push({
-            canvas:
-                makeVariant(
-                    source,
-                    "gray",
-                    rotation,
-                    false
-                ),
-            name:
-                `${rotation}° grayscale`
-        });
+    const filters=[
+        "gray",
+        "contrast",
+        "threshold",
+        "threshold2",
+        "invert",
+        "soft"
+    ];
 
 
-        variants.push({
-            canvas:
-                makeVariant(
-                    source,
-                    "contrast",
-                    rotation,
-                    false
-                ),
-            name:
-                `${rotation}° contrast`
-        });
+    for(const rotation of rotations){
+
+        for(const filter of filters){
+
+            variants.push({
+
+                canvas:
+                    variant(
+                        source,
+                        rotation,
+                        false,
+                        filter
+                    ),
+
+                name:
+                    `${rotation}° ${filter}`
+
+            });
 
 
-        variants.push({
-            canvas:
-                makeVariant(
-                    source,
-                    "binary",
-                    rotation,
-                    false
-                ),
-            name:
-                `${rotation}° black/white`
-        });
+            variants.push({
 
+                canvas:
+                    variant(
+                        source,
+                        rotation,
+                        true,
+                        filter
+                    ),
 
-        variants.push({
-            canvas:
-                makeVariant(
-                    source,
-                    "invert",
-                    rotation,
-                    false
-                ),
-            name:
-                `${rotation}° inverted`
-        });
+                name:
+                    `${rotation}° mirror ${filter}`
 
+            });
 
-        variants.push({
-            canvas:
-                makeVariant(
-                    source,
-                    "contrast",
-                    rotation,
-                    true
-                ),
-            name:
-                `${rotation}° mirrored`
-        });
-
+        }
     }
 
 
-    let worker;
+    /*
+       Tesseract page layouts.
+
+       6  = block of text
+       7  = single line
+       8  = single word
+       11 = sparse text
+       12 = sparse text + OSD
+       13 = raw line
+    */
+
+    const modes=[
+        6,
+        7,
+        8,
+        11,
+        12,
+        13
+    ];
 
 
-    try {
+    const all=[];
 
-        worker =
+    let worker=null;
+
+
+    try{
+
+        worker=
             await Tesseract.createWorker(
                 "eng",
                 1,
                 {
-                    logger:
-                        message => {
+                    logger:m=>{
 
-                            if (
-                                message.status ===
-                                "recognizing text"
-                            ) {
+                        if(
+                            m.status===
+                            "recognizing text"
+                        ){
 
-                                const percent =
-                                    Math.round(
-                                        message.progress *
-                                        100
-                                    );
-
-                                document
-                                    .getElementById(
-                                        "progressBar"
-                                    )
-                                    .style
-                                    .width =
-                                    percent +
-                                    "%";
-
-                            }
-
+                            document
+                            .getElementById("bar")
+                            .style
+                            .width=
+                                Math.round(
+                                    m.progress*100
+                                )+"%";
                         }
+                    }
                 }
             );
 
@@ -1783,418 +1380,312 @@ async function runSmartOCR() {
             tessedit_char_whitelist:
                 "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 .,!?'-",
 
-            preserve_interword_spaces:
-                "1"
+            preserve_interword_spaces:"1"
 
         });
 
 
-        const allCandidates = [];
+        const total=
+            variants.length*
+            modes.length;
+
+        let count=0;
 
 
-        /*
-           Different Tesseract page layouts.
-        */
+        for(const v of variants){
 
-        const psmModes = [
-            6,
-            7,
-            11,
-            13
-        ];
+            for(const mode of modes){
 
-
-        let completed = 0;
-
-        const total =
-            variants.length *
-            psmModes.length;
-
-
-        for (
-            const variant of variants
-        ) {
-
-            for (
-                const psm of psmModes
-            ) {
-
-                try {
+                try{
 
                     await worker.setParameters({
+
                         tessedit_pageseg_mode:
-                            String(psm)
+                            String(mode)
+
                     });
 
 
-                    const result =
+                    const result=
                         await worker.recognize(
-                            variant.canvas
+                            v.canvas
                         );
 
 
-                    const text =
-                        cleanOCR(
+                    const text=
+                        clean(
                             result.data.text
                         );
 
 
-                    if (text) {
+                    if(text){
 
-                        const candidates =
-                            generateCandidates(
-                                text
-                            );
+                        const found=
+                            candidates(text);
 
 
-                        for (
-                            const candidate
-                                of candidates
-                        ) {
+                        for(const c of found){
 
-                            candidate.reason =
-                                variant.name +
-                                " / PSM " +
-                                psm +
-                                " / " +
-                                candidate.reason;
+                            c.reason=
+                                `${v.name}, PSM ${mode}, ${c.reason}`;
 
-                            allCandidates.push(
-                                candidate
-                            );
+                            /*
+                               Small bonus for longer
+                               readable results.
+                            */
 
+                            c.score +=
+                                Math.min(
+                                    c.english
+                                        .replace(
+                                            /[^A-Z]/g,
+                                            ""
+                                        )
+                                        .length,
+                                    20
+                                );
+
+                            all.push(c);
                         }
-
                     }
 
-                }
-
-                catch(error) {
+                }catch(e){
 
                     console.warn(
-                        "OCR attempt failed",
-                        error
+                        "Attempt failed",
+                        e
                     );
-
                 }
 
 
-                completed++;
-
-                const percent =
-                    Math.round(
-                        completed /
-                        total *
-                        100
-                    );
-
-                document
-                    .getElementById(
-                        "progressBar"
-                    )
-                    .style
-                    .width =
-                    percent +
-                    "%";
+                count++;
 
                 setStatus(
-                    "Trying recognition " +
-                    completed +
-                    " of " +
-                    total +
-                    "..."
+                    `Trying ${count} / ${total} recognition passes...`
                 );
 
+                document
+                    .getElementById("bar")
+                    .style
+                    .width=
+                    Math.round(
+                        count/total*100
+                    )+"%";
             }
-
         }
 
 
         await worker.terminate();
+        worker=null;
 
 
         /*
-           Sort all possible results.
+           Group identical English results.
+
+           If many independent OCR passes agree,
+           increase their score.
         */
 
-        allCandidates.sort(
-            (a,b) =>
-                b.score -
-                a.score
-        );
+        const groups=new Map();
 
+        for(const item of all){
 
-        if (
-            allCandidates.length === 0
-        ) {
+            const key=
+                item.english
+                .trim();
 
-            setStatus(
-                "Nothing readable was found."
-            );
+            if(!key)continue;
 
-            return;
+            if(!groups.has(key)){
 
+                groups.set(
+                    key,
+                    {
+                        ...item,
+                        votes:0
+                    }
+                );
+            }
+
+            groups.get(key).votes++;
         }
 
 
-        const best =
-            allCandidates[0];
+        const finalResults=
+            [...groups.values()]
+            .map(item=>{
+
+                item.finalScore=
+                    item.score+
+                    item.votes*12;
+
+                return item;
+
+            })
+            .sort(
+                (a,b)=>
+                    b.finalScore-
+                    a.finalScore
+            );
+
+
+        if(!finalResults.length){
+
+            setStatus(
+                "Nothing recognizable was found."
+            );
+
+            return;
+        }
+
+
+        const best=
+            finalResults[0];
 
 
         document
-            .getElementById(
-                "bestResult"
-            )
-            .textContent =
+            .getElementById("best")
+            .textContent=
             best.english;
 
 
         document
-            .getElementById(
-                "ocrText"
-            )
-            .value =
+            .getElementById("ocrText")
+            .value=
             best.lunari;
 
 
         document
-            .getElementById(
-                "englishResult"
-            )
-            .textContent =
+            .getElementById("englishResult")
+            .textContent=
             best.english;
 
 
         document
-            .getElementById(
-                "confidence"
-            )
-            .textContent =
-            "Best interpretation: " +
-            best.reason +
-            " • English score: " +
-            best.score;
+            .getElementById("confidence")
+            .textContent=
+            `${best.votes} independent OCR attempts agreed • `+
+            `${best.reason} • score ${best.finalScore}`;
 
 
-        showCandidates(
-            allCandidates
-        );
+        /*
+           Show alternatives.
+        */
+
+        let html=
+            `<strong>${escapeHTML(
+                best.english
+            )}</strong>`;
 
 
-        setStatus(
-            "Finished. Tried " +
-            completed +
-            " recognition passes."
-        );
+        for(
+            const item
+            of finalResults.slice(1,6)
+        ){
 
-    }
-
-    catch(error) {
-
-        console.error(error);
-
-        if (worker) {
-
-            try {
-                await worker.terminate();
-            }
-            catch(e) {}
-
-        }
-
-        setStatus(
-            "Recognition failed. Try a clearer photo."
-        );
-
-    }
-
-}
-
-
-/* =====================================================
-   SHOW ALTERNATIVES
-===================================================== */
-
-function showCandidates(
-    candidates
-) {
-
-    const box =
-        document
-            .getElementById(
-                "bestResult"
-            );
-
-
-    let html =
-        "<strong>" +
-        escapeHTML(
-            candidates[0].english
-        ) +
-        "</strong>";
-
-
-    const alternatives =
-        candidates
-            .slice(1,6);
-
-
-    if (
-        alternatives.length
-    ) {
-
-        html +=
-            "<br><br><small>" +
-            "Other possibilities:" +
-            "</small>";
-
-
-        for (
-            const candidate
-                of alternatives
-        ) {
-
-            html +=
-                `<div class="candidate">
+            html+=`
+                <div class="alt">
                     ${escapeHTML(
-                        candidate.english
+                        item.english
                     )}
                     <br>
                     <small>
+                    ${item.votes}
+                    agreeing attempts •
                     ${escapeHTML(
-                        candidate.reason
+                        item.reason
                     )}
                     </small>
-                </div>`;
-
+                </div>
+            `;
         }
 
-    }
 
-
-    box.innerHTML =
-        html;
-
-}
-
-
-/* =====================================================
-   MANUAL DECODE
-===================================================== */
-
-function decodeOCR() {
-
-    const input =
         document
-            .getElementById(
-                "ocrText"
-            )
-            .value
-            .toUpperCase();
-
-    const output =
-        decodeString(input);
+            .getElementById("best")
+            .innerHTML=
+            html;
 
 
-    document
-        .getElementById(
-            "englishResult"
-        )
-        .textContent =
-        output;
-
-}
-
-
-function decodeManual() {
-
-    const input =
-        document
-            .getElementById(
-                "manualInput"
-            )
-            .value
-            .toUpperCase();
-
-    const output =
-        decodeString(input);
-
-
-    document
-        .getElementById(
-            "manualResult"
-        )
-        .textContent =
-        output;
-
-}
-
-
-/* =====================================================
-   STATUS
-===================================================== */
-
-function setStatus(text) {
-
-    document
-        .getElementById(
-            "ocrStatus"
-        )
-        .textContent =
-        text;
-
-}
-
-
-/* =====================================================
-   HTML ESCAPING
-===================================================== */
-
-function escapeHTML(text) {
-
-    return text
-        .replace(
-            /&/g,
-            "&amp;"
-        )
-        .replace(
-            /</g,
-            "&lt;"
-        )
-        .replace(
-            />/g,
-            "&gt;"
-        )
-        .replace(
-            /"/g,
-            "&quot;"
-        )
-        .replace(
-            /'/g,
-            "&#039;"
+        setStatus(
+            `Finished. Tested ${total} OCR configurations.`
         );
 
+
+    }catch(error){
+
+        console.error(error);
+
+        if(worker){
+
+            try{
+                await worker.terminate();
+            }catch(e){}
+
+        }
+
+        setStatus(
+            "Scanner failed. Try a clearer image."
+        );
+    }
 }
 
 
-/* ENTER PASSWORD */
+/* =====================================================
+   MANUAL DECODING
+===================================================== */
 
-document
-    .getElementById("password")
-    .addEventListener(
-        "keydown",
-        event => {
+function decodeOCR(){
 
-            if (
-                event.key === "Enter"
-            ) {
+    const input=
+        document
+        .getElementById("ocrText")
+        .value
+        .toUpperCase();
 
-                unlock();
+    document
+        .getElementById("englishResult")
+        .textContent=
+        decode(input);
+}
 
-            }
 
-        }
-    );
+function decodeManual(){
+
+    const input=
+        document
+        .getElementById("manual")
+        .value
+        .toUpperCase();
+
+    document
+        .getElementById("manualResult")
+        .textContent=
+        decode(input);
+}
+
+
+/* =====================================================
+   HELPERS
+===================================================== */
+
+function setStatus(text){
+
+    document
+        .getElementById("status")
+        .textContent=text;
+}
+
+
+function escapeHTML(text){
+
+    return text
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+}
 
 </script>
 
