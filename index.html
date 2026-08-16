@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Lunari Secret Language</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    background:
+        radial-gradient(circle at top, #38245d 0%, #120b1f 45%, #050308 100%);
+    color: #eee7ff;
+    font-family: Georgia, serif;
+    padding: 20px;
+}
+
+.card {
+    width: min(950px, 100%);
+    margin: auto;
+    background: linear-gradient(145deg, #191126, #0b0811);
+    border: 1px solid #9c70ee;
+    border-radius: 25px;
+    padding: 35px;
+    box-shadow:
+        0 0 80px #7b42d833,
+        inset 0 0 50px #00000044;
+}
+
+h1 {
+    text-align: center;
+    font-size: clamp(36px, 8vw, 60px);
+    letter-spacing: 8px;
+    margin: 10px 0;
+    color: #eadcff;
+    text-shadow: 0 0 20px #a76cff;
+}
+
+.subtitle {
+    text-align: center;
+    color: #a895c5;
+    letter-spacing: 3px;
+    margin-bottom: 35px;
+}
+
+h2 {
+    text-align: center;
+    color: #c9aeff;
+    letter-spacing: 2px;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.section {
+    margin-top: 25px;
+    padding: 25px;
+    border: 1px solid #35244c;
+    background: #09070eaa;
+    border-radius: 18px;
+}
+
+input,
+textarea,
+select {
+    width: 100%;
+    padding: 13px;
+    border-radius: 10px;
+    border: 1px solid #503875;
+    background: #08060d;
+    color: white;
+    font-size: 16px;
+}
+
+textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+    outline: none;
+    border-color: #a97cff;
+}
+
+button {
+    width: 100%;
+    padding: 14px;
+    margin-top: 10px;
+    border: 0;
+    border-radius: 10px;
+    background: linear-gradient(90deg, #7140c5, #a46aff);
+    color: white;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+button:hover {
+    filter: brightness(1.15);
+}
+
+.secondary {
+    background: #241638;
+    border: 1px solid #60488b;
+}
+
+.error {
+    color: #ff718d;
+    text-align: center;
+    min-height: 24px;
+    margin-top: 8px;
+}
+
+.note {
+    color: #9183a7;
+    font-size: 14px;
+    text-align: center;
+    line-height: 1.6;
+}
+
+.alphabet {
+    display: grid;
+    grid-template-columns:
+        repeat(auto-fit, minmax(100px, 1fr));
+    gap: 9px;
+}
+
+.glyph {
+    background: #171021;
+    border: 1px solid #322044;
+    border-radius: 12px;
+    padding: 12px;
+    text-align: center;
+}
+
+.glyph .letter {
+    color: #9e7bc9;
+    font-weight: bold;
+}
+
+.glyph .symbol {
+    font-family: Arial, sans-serif;
+    font-size: 32px;
+    margin-top: 5px;
+    color: #eadbff;
+}
+
+.result {
+    margin-top: 12px;
+    padding: 15px;
+    background: #05040a;
+    border-radius: 10px;
+    min-height: 50px;
+    color: #d8c2fa;
+    word-break: break-word;
+    white-space: pre-wrap;
+}
+
+.camera {
+    width: 100%;
+    max-height: 450px;
+    object-fit: contain;
+    border-radius: 15px;
+    background: #000;
+    border: 1px solid #4b3566;
+}
+
+#scanCanvas {
+    display: none;
+}
+
+.scannerBox {
+    text-align: center;
+}
+
+.scanPreview {
+    width: 100%;
+    min-height: 180px;
+    border: 2px dashed #594175;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #77678c;
+    overflow: hidden;
+    background: #07050b;
+}
+
+.scanPreview img {
+    max-width: 100%;
+    max-height: 450px;
+}
+
+.detected {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+    margin-top: 15px;
+}
+
+.detected button {
+    width: auto;
+    min-width: 55px;
+    margin: 0;
+    font-size: 25px;
+    padding: 8px 13px;
+}
+
+.toolGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+@media(max-width:700px) {
+    .card {
+        padding: 20px;
+    }
+
+    .toolGrid {
+        grid-template-columns: 1fr;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="card">
+
+<h1>☾ LUNARI ☽</h1>
+
+<div class="subtitle">
+THE SECRET LANGUAGE OF THE MOON
+</div>
+
+
+<!-- PASSWORD -->
+
+<div id="login">
+
+<div class="section">
+
+<h2>♜ THE CARD IS SEALED ♜</h2>
+
+<p class="note">
+Enter the secret word to reveal the Lunari language.
+</p>
+
+<input
+    id="password"
+    type="password"
+    placeholder="Secret word"
+    autocomplete="off"
+>
+
+<button onclick="unlock()">
+UNSEAL THE CARD
+</button>
+
+<div id="loginError" class="error"></div>
+
+</div>
+
+</div>
+
+
+<!-- MAIN CONTENT -->
+
+<div id="main" class="hidden">
+
+
+<!-- ALPHABET -->
+
+<div class="section">
+
+<h2>THE LUNARI ALPHABET</h2>
+
+<p class="note">
+Each symbol is intentionally simple so it can be written by hand.
+</p>
+
+<div id="alphabet" class="alphabet"></div>
+
+</div>
+
+
+<!-- ENCODER -->
+
+<div class="section">
+
+<h2>✦ ENCODE ENGLISH ✦</h2>
+
+<textarea
+    id="englishInput"
+    placeholder="Write your secret message here..."
+></textarea>
+
+<button onclick="encodeText()">
+CONVERT TO LUNARI
+</button>
+
+<div id="encodedOutput" class="result"></div>
+
+</div>
+
+
+<!-- DECODER -->
+
+<div class="section">
+
+<h2>✦ DECODE LUNARI ✦</h2>
+
+<textarea
+    id="lunariInput"
+    placeholder="Enter your Lunari symbols here..."
+></textarea>
+
+<button onclick="decodeText()">
+TRANSLATE TO ENGLISH
+</button>
+
+<div id="decodedOutput" class="result"></div>
+
+</div>
+
+
+<!-- SCANNER -->
+
+<div class="section scannerBox">
+
+<h2>☽ LUNARI SCANNER ☾</h2>
+
+<p class="note">
+Take a photo of handwritten Lunari or upload an image.
+For best results, write each symbol clearly with spaces between symbols.
+</p>
+
+<div class="toolGrid">
+
+<div>
+
+<input
+    id="imageInput"
+    type="file"
+    accept="image/*"
+    capture="environment"
+>
+
+<button
+    class="secondary"
+    onclick="startCamera()"
+>
+USE CAMERA
+</button>
+
+</div>
+
+<div>
+
+<button
+    class="secondary"
+    onclick="stopCamera()"
+>
+STOP CAMERA
+</button>
+
+<button
+    onclick="captureCamera()"
+>
+CAPTURE LUNARI
+</button>
+
+</div>
+
+</div>
+
+<br>
+
+<video
+    id="camera"
+    class="camera hidden"
+    autoplay
+    playsinline
+></video>
+
+<canvas id="scanCanvas"></canvas>
+
+<div id="preview" class="scanPreview">
+No image selected.
+</div>
+
+<button onclick="prepareScan()">
+PREPARE IMAGE FOR SCANNING
+</button>
+
+<div id="scanInfo" class="note"></div>
+
+</div>
+
+
+<!-- MANUAL SCAN CORRECTION -->
+
+<div class="section">
+
+<h2>SCANNED SYMBOLS</h2>
+
+<p class="note">
+If the scanner cannot identify handwriting perfectly,
+tap a symbol below to manually enter it.
+</p>
+
+<div id="detectedSymbols" class="detected"></div>
+
+<div class="result" id="scanResult">
+Your decoded message will appear here.
+</div>
+
+<button onclick="clearScan()">
+CLEAR SCAN
+</button>
+
+</div>
+
+
+<!-- QUICK DECODER -->
+
+<div class="section">
+
+<h2>QUICK SYMBOL PICKER</h2>
+
+<p class="note">
+Tap the Lunari symbols in order to build a message.
+</p>
+
+<div id="symbolPicker" class="detected"></div>
+
+<div id="pickerResult" class="result"></div>
+
+<button onclick="clearPicker()">
+CLEAR
+</button>
+
+</div>
+
+
+<p class="note">
+☾ Lunari is a substitution cipher. Keep the alphabet card
+with you if you want others to be able to read your writing. ☽
+</p>
+
+</div>
+
+</div>
+
+
+<script>
+
+/* =====================================================
+   LUNARI ALPHABET
+
+   These are deliberately simple handwriting symbols.
+   ===================================================== */
+
+const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+const symbols = [
+    "|",    // A
+    "/",    // B
+    "\\",   // C
+    "-",    // D
+    "+",    // E
+    "×",    // F
+    "○",    // G
+    "△",    // H
+    "□",    // I
+    "◇",    // J
+    "∩",    // K
+    "∪",    // L
+    "⌒",    // M
+    "⌄",    // N
+    "•",    // O
+    "◐",    // P
+    "◑",    // Q
+    "⊂",    // R
+    "⊃",    // S
+    "┬",    // T
+    "┴",    // U
+    "∨",    // V
+    "∧",    // W
+    "#",    // X
+    "∥",    // Y
+    "≡"     // Z
+];
+
+const encodeMap = {};
+const decodeMap = {};
+
+for (let i = 0; i < letters.length; i++) {
+
+    encodeMap[letters[i]] = symbols[i];
+    decodeMap[symbols[i]] = letters[i];
+
+}
+
+
+/* =====================================================
+   PASSWORD
+
+   Change this if you want a different password.
+   ===================================================== */
+
+const SECRET_PASSWORD = "Moonlight";
+
+
+function unlock() {
+
+    const entered =
+        document.getElementById("password").value;
+
+    if (entered === SECRET_PASSWORD) {
+
+        document
+            .getElementById("login")
+            .classList
+            .add("hidden");
+
+        document
+            .getElementById("main")
+            .classList
+            .remove("hidden");
+
+    } else {
+
+        document
+            .getElementById("loginError")
+            .textContent =
+            "Incorrect secret word.";
+
+    }
+
+}
+
+
+document
+    .getElementById("password")
+    .addEventListener("keydown", function(event) {
+
+        if (event.key === "Enter") {
+            unlock();
+        }
+
+    });
+
+
+/* =====================================================
+   BUILD ALPHABET
+   ===================================================== */
+
+function buildAlphabet() {
+
+    const container =
+        document.getElementById("alphabet");
+
+    container.innerHTML = "";
+
+    for (let i = 0; i < letters.length; i++) {
+
+        const div =
+            document.createElement("div");
+
+        div.className = "glyph";
+
+        div.innerHTML = `
+            <div class="letter">
+                ${letters[i]}
+            </div>
+
+            <div class="symbol">
+                ${symbols[i]}
+            </div>
+        `;
+
+        container.appendChild(div);
+
+    }
+
+}
+
+buildAlphabet();
+
+
+/* =====================================================
+   ENCODE
+   ===================================================== */
+
+function encodeText() {
+
+    const text =
+        document
+            .getElementById("englishInput")
+            .value
+            .toUpperCase();
+
+    let result = "";
+
+    for (const character of text) {
+
+        if (encodeMap[character]) {
+
+            result += encodeMap[character];
+
+        } else {
+
+            result += character;
+
+        }
+
+    }
+
+    document
+        .getElementById("encodedOutput")
+        .textContent = result;
+
+}
+
+
+/* =====================================================
+   DECODE
+   ===================================================== */
+
+function decodeText() {
+
+    const text =
+        document
+            .getElementById("lunariInput")
+            .value;
+
+    let result = "";
+
+    for (const character of text) {
+
+        if (decodeMap[character]) {
+
+            result += decodeMap[character];
+
+        } else {
+
+            result += character;
+
+        }
+
+    }
+
+    document
+        .getElementById("decodedOutput")
+        .textContent = result;
+
+}
+
+
+/* =====================================================
+   IMAGE UPLOAD
+   ===================================================== */
+
+const imageInput =
+    document.getElementById("imageInput");
+
+const preview =
+    document.getElementById("preview");
+
+
+imageInput.addEventListener("change", function() {
+
+    const file = this.files[0];
+
+    if (!file) return;
+
+    const reader = new FileReader();
+
+    reader.onload = function(event) {
+
+        preview.innerHTML =
+            `<img src="${event.target.result}">`;
+
+        document
+            .getElementById("scanInfo")
+            .textContent =
+            "Image loaded. Use the symbol picker below to decode it.";
+
+    };
+
+    reader.readAsDataURL(file);
+
+});
+
+
+/* =====================================================
+   CAMERA
+   ===================================================== */
+
+let cameraStream = null;
+
+const camera =
+    document.getElementById("camera");
+
+
+async function startCamera() {
+
+    try {
+
+        cameraStream =
+            await navigator.mediaDevices.getUserMedia({
+                video: {
+                    facingMode: {
+                        ideal: "environment"
+                    }
+                },
+                audio: false
+            });
+
+        camera.srcObject =
+            cameraStream;
+
+        camera.classList.remove("hidden");
+
+    } catch (error) {
+
+        document
+            .getElementById("scanInfo")
+            .textContent =
+            "Camera access was unavailable. Try uploading a photo instead.";
+
+    }
+
+}
+
+
+function stopCamera() {
+
+    if (cameraStream) {
+
+        cameraStream
+            .getTracks()
+            .forEach(track => track.stop());
+
+        cameraStream = null;
+
+    }
+
+    camera.classList.add("hidden");
+
+}
+
+
+/* =====================================================
+   CAPTURE CAMERA IMAGE
+   ===================================================== */
+
+function captureCamera() {
+
+    if (!cameraStream) {
+
+        document
+            .getElementById("scanInfo")
+            .textContent =
+            "Start the camera first.";
+
+        return;
+
+    }
+
+    const canvas =
+        document.getElementById("scanCanvas");
+
+    canvas.width =
+        camera.videoWidth;
+
+    canvas.height =
+        camera.videoHeight;
+
+    const context =
+        canvas.getContext("2d");
+
+    context.drawImage(
+        camera,
+        0,
+        0,
+        canvas.width,
+        canvas.height
+    );
+
+    const image =
+        canvas.toDataURL("image/png");
+
+    preview.innerHTML =
+        `<img src="${image}">`;
+
+    document
+        .getElementById("scanInfo")
+        .textContent =
+        "Photo captured.";
+
+}
+
+
+/* =====================================================
+   PREPARE SCAN
+   ===================================================== */
+
+function prepareScan() {
+
+    document
+        .getElementById("scanInfo")
+        .textContent =
+        "For handwritten Lunari, select the symbols manually below. Automatic handwriting recognition of a custom alphabet requires a trained recognition model.";
+
+    createSymbolPicker();
+
+}
+
+
+/* =====================================================
+   SYMBOL PICKER
+   ===================================================== */
+
+let scanMessage = "";
+
+function createSymbolPicker() {
+
+    const container =
+        document.getElementById("detectedSymbols");
+
+    container.innerHTML = "";
+
+    for (let i = 0; i < symbols.length; i++) {
+
+        const button =
+            document.createElement("button");
+
+        button.textContent =
+            symbols[i];
+
+        button.title =
+            "Lunari " + letters[i];
+
+        button.onclick = function() {
+
+            scanMessage += letters[i];
+
+            updateScanResult();
+
+        };
+
+        container.appendChild(button);
+
+    }
+
+    const spaceButton =
+        document.createElement("button");
+
+    spaceButton.textContent = "SPACE";
+
+    spaceButton.onclick = function() {
+
+        scanMessage += " ";
+
+        updateScanResult();
+
+    };
+
+    container.appendChild(spaceButton);
+
+}
+
+
+function updateScanResult() {
+
+    document
+        .getElementById("scanResult")
+        .textContent =
+        scanMessage || "Your decoded message will appear here.";
+
+}
+
+
+function clearScan() {
+
+    scanMessage = "";
+
+    updateScanResult();
+
+}
+
+
+/* =====================================================
+   QUICK SYMBOL PICKER
+   ===================================================== */
+
+let pickerMessage = "";
+
+function buildQuickPicker() {
+
+    const container =
+        document.getElementById("symbolPicker");
+
+    for (let i = 0; i < symbols.length; i++) {
+
+        const button =
+            document.createElement("button");
+
+        button.textContent =
+            symbols[i];
+
+        button.onclick = function() {
+
+            pickerMessage += letters[i];
+
+            document
+                .getElementById("pickerResult")
+                .textContent =
+                pickerMessage;
+
+        };
+
+        container.appendChild(button);
+
+    }
+
+    const space =
+        document.createElement("button");
+
+    space.textContent = "SPACE";
+
+    space.onclick = function() {
+
+        pickerMessage += " ";
+
+        document
+            .getElementById("pickerResult")
+            .textContent =
+            pickerMessage;
+
+    };
+
+    container.appendChild(space);
+
+}
+
+
+function clearPicker() {
+
+    pickerMessage = "";
+
+    document
+        .getElementById("pickerResult")
+        .textContent = "";
+
+}
+
+buildQuickPicker();
+
+</script>
+
+</body>
+</html>
