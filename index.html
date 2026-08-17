@@ -8,13 +8,45 @@
 <style>
 *{box-sizing:border-box}
 
+:root{
+    --bg1:#402667;
+    --bg2:#130b20;
+    --bg3:#050308;
+    --accent:#a77cff;
+    --accent2:#c39cff;
+    --ink:#eee7ff;
+    --panel:#1a1127;
+    --panel2:#09070d;
+    --line:#38264e;
+    --good:#55c88a;
+}
+
+@media (prefers-reduced-motion: no-preference){
+    .moon{animation:phase 8s ease-in-out infinite}
+    .card{animation:rise .6s ease both}
+    .letter{transition:transform .15s ease,border-color .15s ease}
+    .letter:hover{transform:translateY(-2px);border-color:var(--accent)}
+    button{transition:filter .15s ease,transform .1s ease}
+    button:active{transform:scale(.98)}
+}
+
+@keyframes phase{
+    0%,100%{box-shadow:inset 8px 0 0 0 var(--bg3)}
+    50%{box-shadow:inset -8px 0 0 0 var(--bg3)}
+}
+
+@keyframes rise{
+    from{opacity:0;transform:translateY(10px)}
+    to{opacity:1;transform:translateY(0)}
+}
+
 body{
     margin:0;
     min-height:100vh;
     padding:18px;
     background:
-        radial-gradient(circle at 50% 0%,#402667 0%,#130b20 45%,#050308 100%);
-    color:#eee7ff;
+        radial-gradient(circle at 50% 0%,var(--bg1) 0%,var(--bg2) 45%,var(--bg3) 100%);
+    color:var(--ink);
     font-family:Georgia,serif;
 }
 
@@ -22,16 +54,31 @@ body{
     width:min(1000px,100%);
     margin:auto;
     padding:30px;
-    border:1px solid #a77cff;
+    border:1px solid var(--accent);
     border-radius:28px;
-    background:linear-gradient(145deg,#1a1127,#09070d);
+    background:linear-gradient(145deg,var(--panel),var(--panel2));
     box-shadow:0 0 80px #8e5be833,inset 0 0 50px #0005;
+}
+
+.titlewrap{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:14px;
+}
+
+.moon{
+    width:34px;
+    height:34px;
+    border-radius:50%;
+    background:radial-gradient(circle at 35% 35%,#fff8e6,#e8d9ff 60%,#b79cf0);
+    flex:0 0 auto;
 }
 
 h1{
     margin:5px 0;
     text-align:center;
-    font-size:clamp(38px,8vw,64px);
+    font-size:clamp(34px,7vw,58px);
     letter-spacing:8px;
     color:#eadcff;
     text-shadow:0 0 20px #a66cff;
@@ -42,18 +89,24 @@ h1{
     color:#a997c3;
     letter-spacing:3px;
     margin-bottom:30px;
+    font-size:13px;
 }
 
 h2{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
     text-align:center;
     color:#cbb0ff;
     letter-spacing:2px;
+    margin:0 0 14px;
 }
 
 .section{
     margin-top:22px;
     padding:22px;
-    border:1px solid #38264e;
+    border:1px solid var(--line);
     border-radius:18px;
     background:#08060daa;
 }
@@ -62,9 +115,19 @@ h2{
 
 .note{
     color:#9d8eac;
-    font-size:14px;
+    font-size:13.5px;
     line-height:1.6;
     text-align:center;
+    margin:0 0 12px;
+}
+
+label.field-label{
+    display:block;
+    font-size:12px;
+    letter-spacing:1.5px;
+    color:#8f7ba8;
+    margin-bottom:6px;
+    text-transform:uppercase;
 }
 
 input,textarea{
@@ -75,6 +138,12 @@ input,textarea{
     background:#08060d;
     color:#fff;
     font-size:16px;
+    font-family:inherit;
+}
+
+input:focus,textarea:focus,button:focus-visible{
+    outline:2px solid var(--accent2);
+    outline-offset:2px;
 }
 
 textarea{
@@ -92,22 +161,52 @@ button{
     color:white;
     font-weight:bold;
     cursor:pointer;
+    font-size:15px;
 }
 
 button:hover{
     filter:brightness(1.15);
 }
 
+button:disabled{
+    opacity:.5;
+    cursor:not-allowed;
+    filter:none;
+}
+
+.row{
+    display:flex;
+    gap:10px;
+}
+
+.row button{margin-top:10px}
+
 .secondary{
     background:#251738;
     border:1px solid #60477e;
 }
 
+.danger{
+    background:#3a1830;
+    border:1px solid #7a3a5c;
+}
+
+.ghost{
+    background:transparent;
+    border:1px solid #4a3866;
+    padding:8px 12px;
+    width:auto;
+    margin-top:8px;
+    font-size:12px;
+    letter-spacing:1px;
+}
+
 .error{
-    min-height:24px;
+    min-height:20px;
     margin-top:8px;
     text-align:center;
     color:#ff718d;
+    font-size:14px;
 }
 
 .result{
@@ -121,11 +220,12 @@ button:hover{
     font-size:20px;
     white-space:pre-wrap;
     word-break:break-word;
+    position:relative;
 }
 
 .big{
     text-align:center;
-    font-size:clamp(28px,7vw,55px);
+    font-size:clamp(26px,6.5vw,50px);
     letter-spacing:5px;
     line-height:1.5;
 }
@@ -137,7 +237,7 @@ button:hover{
 
 .alphabet{
     display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(95px,1fr));
+    grid-template-columns:repeat(auto-fit,minmax(90px,1fr));
     gap:8px;
 }
 
@@ -156,36 +256,50 @@ button:hover{
 
 .letter .lunari{
     margin-top:6px;
-    font-size:28px;
+    font-size:26px;
     font-family:Arial,sans-serif;
+}
+
+.dropzone{
+    border:2px dashed #55406e;
+    border-radius:15px;
+    padding:10px;
+    text-align:center;
+    transition:border-color .15s ease,background .15s ease;
+}
+
+.dropzone.drag{
+    border-color:var(--accent2);
+    background:#150e22;
 }
 
 video{
     width:100%;
-    max-height:520px;
+    max-height:480px;
     border-radius:14px;
     background:#000;
     border:1px solid #493563;
+    display:block;
 }
 
 canvas{display:none}
 
 .preview{
     min-height:150px;
-    margin-top:15px;
+    margin-top:12px;
     display:flex;
     justify-content:center;
     align-items:center;
     overflow:hidden;
-    border:2px dashed #55406e;
     border-radius:15px;
     background:#06040a;
     color:#766889;
+    font-size:14px;
 }
 
 .preview img{
     width:100%;
-    max-height:500px;
+    max-height:460px;
     object-fit:contain;
 }
 
@@ -199,6 +313,8 @@ canvas{display:none}
     margin-top:12px;
     text-align:center;
     color:#bda5dc;
+    font-size:14px;
+    min-height:20px;
 }
 
 .progress{
@@ -217,15 +333,20 @@ canvas{display:none}
 }
 
 .best{
-    border-color:#55c88a;
+    border:1px solid var(--good);
 }
 
 .alt{
     margin-top:8px;
     padding:10px;
-    border:1px solid #38264e;
+    border:1px solid var(--line);
     border-radius:9px;
     background:#100b18;
+    cursor:pointer;
+}
+
+.alt:hover{
+    border-color:var(--accent);
 }
 
 .confidence{
@@ -235,9 +356,56 @@ canvas{display:none}
     font-size:13px;
 }
 
+.copybtn{
+    position:absolute;
+    top:8px;
+    right:8px;
+    width:auto;
+    margin:0;
+    padding:5px 10px;
+    font-size:11px;
+    letter-spacing:1px;
+    background:#1c1327;
+    border:1px solid #4a3866;
+}
+
+.history{
+    display:flex;
+    flex-wrap:wrap;
+    gap:6px;
+    margin-top:10px;
+}
+
+.chip{
+    padding:6px 10px;
+    border-radius:20px;
+    background:#171021;
+    border:1px solid #38264e;
+    font-size:12px;
+    color:#b7a3d6;
+    cursor:pointer;
+}
+
+.chip:hover{
+    border-color:var(--accent);
+}
+
+.badge{
+    display:inline-block;
+    padding:2px 8px;
+    border-radius:20px;
+    font-size:10px;
+    letter-spacing:1px;
+    background:#22301f;
+    color:var(--good);
+    margin-left:6px;
+    vertical-align:middle;
+}
+
 @media(max-width:700px){
     .card{padding:18px}
     .grid{grid-template-columns:1fr}
+    .row{flex-direction:column}
 }
 </style>
 </head>
@@ -246,7 +414,11 @@ canvas{display:none}
 
 <div class="card">
 
-<h1>☾ LUNARI ☽</h1>
+<div class="titlewrap">
+<div class="moon"></div>
+<h1>LUNARI</h1>
+<div class="moon"></div>
+</div>
 <div class="subtitle">ULTRA SECRET LANGUAGE</div>
 
 
@@ -256,7 +428,7 @@ canvas{display:none}
 
 <div class="section">
 
-<h2>♜ SEALED</h2>
+<h2>&#9820; SEALED</h2>
 
 <p class="note">
 Enter the secret word.
@@ -266,13 +438,15 @@ Enter the secret word.
     id="password"
     type="password"
     placeholder="Secret word"
+    autocomplete="off"
+    aria-label="Secret word"
 >
 
 <button onclick="unlock()">
 UNSEAL LUNARI
 </button>
 
-<div id="loginError" class="error"></div>
+<div id="loginError" class="error" role="alert"></div>
 
 </div>
 
@@ -299,25 +473,30 @@ UNSEAL LUNARI
 
 <div class="section">
 
-<h2>🔒 ENGLISH → LUNARI</h2>
+<h2>&#128274; ENGLISH &rarr; LUNARI</h2>
+
+<label class="field-label" for="englishInput">Your message</label>
 
 <textarea
     id="englishInput"
     placeholder="Type your English message..."
+    oninput="encodeMessage()"
 ></textarea>
-
-<button onclick="encodeMessage()">
-CONVERT
-</button>
 
 <div
     id="lunariOutput"
     class="result big"
 ></div>
 
+<button class="ghost" onclick="copyText('lunariOutput')">
+COPY
+</button>
+
 <p class="note">
-The displayed letters are rotated 180°. Write them that way.
+The displayed letters are rotated 180&deg;. Write them that way.
 </p>
+
+<div id="encodeHistory" class="history"></div>
 
 </div>
 
@@ -326,12 +505,12 @@ The displayed letters are rotated 180°. Write them that way.
 
 <div class="section">
 
-<h2>📷 LUNARI SCANNER</h2>
+<h2>&#128247; LUNARI SCANNER</h2>
 
 <p class="note">
-The scanner automatically tries multiple orientations,
-mirroring methods, image filters, OCR modes,
-character corrections and text directions.
+Take or upload a photo of handwritten Lunari. The scanner sharpens
+the image, guesses the correct orientation, then runs several
+recognition passes and picks the most English-like result.
 </p>
 
 <div class="grid">
@@ -344,20 +523,24 @@ START CAMERA
 
 <button
     class="secondary"
-    onclick="stopCamera()"
+    onclick="switchCamera()"
+    id="switchBtn"
 >
-STOP CAMERA
+SWITCH CAMERA
 </button>
 
 </div>
 
 <div>
 
+<label class="field-label" for="imageInput">Or upload a photo</label>
+
 <input
     id="imageInput"
     type="file"
     accept="image/*"
     capture="environment"
+    aria-label="Upload a photo of Lunari text"
 >
 
 </div>
@@ -368,26 +551,51 @@ STOP CAMERA
     id="camera"
     autoplay
     playsinline
+    muted
     class="hidden"
 ></video>
 
+<button
+    id="stopCameraBtn"
+    class="secondary hidden"
+    onclick="stopCamera()"
+>
+STOP CAMERA
+</button>
+
 <canvas id="canvas"></canvas>
 
+<div id="dropzone" class="dropzone">
 <div id="preview" class="preview">
-No image.
+No image yet &mdash; capture or drop a photo here.
 </div>
+</div>
+
+<div class="row">
 
 <button onclick="captureImage()">
 CAPTURE
 </button>
 
-<button onclick="smartScan()">
-🤖 SCAN LUNARI
+<button onclick="clearImage()" class="secondary">
+CLEAR
+</button>
+
+</div>
+
+<button onclick="smartScan()" id="scanBtn">
+&#129302; SCAN LUNARI
+</button>
+
+<button onclick="cancelScan()" id="cancelBtn" class="danger hidden">
+STOP SCANNING
 </button>
 
 <div
     id="status"
     class="status"
+    role="status"
+    aria-live="polite"
 >
 Ready.
 </div>
@@ -403,7 +611,7 @@ Ready.
 
 <div class="section">
 
-<h2>✨ BEST RESULT</h2>
+<h2>&#10024; BEST RESULT</h2>
 
 <div
     id="best"
@@ -424,21 +632,22 @@ Nothing recognized yet.
 
 <div class="section">
 
-<h2>🤖 RECOGNIZED LUNARI</h2>
+<h2>&#129302; RECOGNIZED LUNARI</h2>
 
 <textarea
     id="ocrText"
     placeholder="Recognized Lunari..."
+    oninput="decodeOCR()"
 ></textarea>
-
-<button onclick="decodeOCR()">
-🔓 DECODE
-</button>
 
 <div
     id="englishResult"
     class="result"
 ></div>
+
+<button class="ghost" onclick="copyText('englishResult')">
+COPY
+</button>
 
 </div>
 
@@ -447,21 +656,22 @@ Nothing recognized yet.
 
 <div class="section">
 
-<h2>✏️ MANUAL DECODER</h2>
+<h2>&#9999;&#65039; MANUAL DECODER</h2>
 
 <textarea
     id="manual"
     placeholder="Enter Lunari manually..."
+    oninput="decodeManual()"
 ></textarea>
-
-<button onclick="decodeManual()">
-DECODE
-</button>
 
 <div
     id="manualResult"
     class="result"
 ></div>
+
+<button class="ghost" onclick="copyText('manualResult')">
+COPY
+</button>
 
 </div>
 
@@ -484,6 +694,8 @@ LOCK
 
 /* =====================================================
    LUNARI CIPHER
+   (unchanged mapping — keep in sync with anything
+   already written in Lunari)
 ===================================================== */
 
 const normal =
@@ -514,30 +726,18 @@ function unlock(){
 
     if(value===PASSWORD){
 
-        document
-            .getElementById("login")
-            .classList
-            .add("hidden");
-
-        document
-            .getElementById("main")
-            .classList
-            .remove("hidden");
+        document.getElementById("login").classList.add("hidden");
+        document.getElementById("main").classList.remove("hidden");
+        document.getElementById("loginError").textContent="";
 
     }else{
 
-        document
-            .getElementById("loginError")
-            .textContent=
+        document.getElementById("loginError").textContent=
             "Incorrect secret word.";
-
     }
-
 }
 
-document
-.getElementById("password")
-.addEventListener("keydown",e=>{
+document.getElementById("password").addEventListener("keydown",e=>{
     if(e.key==="Enter") unlock();
 });
 
@@ -548,45 +748,35 @@ document
 
 function buildAlphabet(){
 
-    const box=
-        document.getElementById("alphabet");
+    const box=document.getElementById("alphabet");
+    const frag=document.createDocumentFragment();
 
     for(let i=0;i<26;i++){
 
-        const div=
-            document.createElement("div");
-
+        const div=document.createElement("div");
         div.className="letter";
-
-        div.innerHTML=`
-            <div class="normal">
-                ${normal[i]}
-            </div>
-            <div class="lunari">
-                <span class="upside">
-                    ${lunari[i]}
-                </span>
-            </div>
-        `;
-
-        box.appendChild(div);
+        div.innerHTML=
+            `<div class="normal">${normal[i]}</div>`+
+            `<div class="lunari"><span class="upside">${lunari[i]}</span></div>`;
+        frag.appendChild(div);
     }
+
+    box.appendChild(frag);
 }
 
 buildAlphabet();
 
 
 /* =====================================================
-   ENCODE
+   ENCODE / HISTORY
 ===================================================== */
+
+let encodeHistory=[];
 
 function encodeMessage(){
 
     const input=
-        document
-        .getElementById("englishInput")
-        .value
-        .toUpperCase();
+        document.getElementById("englishInput").value.toUpperCase();
 
     let output="";
 
@@ -594,9 +784,81 @@ function encodeMessage(){
         output += encodeMap[c] || c;
     }
 
-    document
-        .getElementById("lunariOutput")
-        .textContent=output;
+    document.getElementById("lunariOutput").textContent=output;
+
+    if(input.trim() && input.trim().length>1){
+        pushHistory(input.trim());
+    }
+}
+
+let historyDebounce=null;
+
+function pushHistory(text){
+
+    clearTimeout(historyDebounce);
+
+    historyDebounce=setTimeout(()=>{
+
+        encodeHistory=encodeHistory.filter(h=>h!==text);
+        encodeHistory.unshift(text);
+        encodeHistory=encodeHistory.slice(0,5);
+        renderHistory();
+
+    },900);
+}
+
+function renderHistory(){
+
+    const box=document.getElementById("encodeHistory");
+    box.innerHTML="";
+
+    for(const text of encodeHistory){
+
+        const chip=document.createElement("div");
+        chip.className="chip";
+        chip.textContent=text.length>28 ? text.slice(0,28)+"…" : text;
+        chip.onclick=()=>{
+            document.getElementById("englishInput").value=text;
+            encodeMessage();
+        };
+        box.appendChild(chip);
+    }
+}
+
+
+/* =====================================================
+   COPY
+===================================================== */
+
+async function copyText(id){
+
+    const el=document.getElementById(id);
+    const text=el.textContent || el.value || "";
+
+    if(!text.trim())return;
+
+    try{
+        await navigator.clipboard.writeText(text);
+        flashCopied(id);
+    }catch(e){
+
+        const ta=document.createElement("textarea");
+        ta.value=text;
+        document.body.appendChild(ta);
+        ta.select();
+        try{ document.execCommand("copy"); }catch(err){}
+        document.body.removeChild(ta);
+        flashCopied(id);
+    }
+}
+
+function flashCopied(id){
+
+    const status=document.getElementById("status");
+    if(!status)return;
+    const prev=status.textContent;
+    status.textContent="Copied.";
+    setTimeout(()=>{ if(status.textContent==="Copied.") status.textContent=prev; },1200);
 }
 
 
@@ -605,180 +867,172 @@ function encodeMessage(){
 ===================================================== */
 
 let stream=null;
+let facingMode="environment";
 
-const camera=
-    document.getElementById("camera");
+const camera=document.getElementById("camera");
 
 async function startCamera(){
 
     try{
 
-        stream=
-            await navigator.mediaDevices
-            .getUserMedia({
-                video:{
-                    facingMode:{
-                        ideal:"environment"
-                    },
-                    width:{
-                        ideal:1920
-                    },
-                    height:{
-                        ideal:1080
-                    }
-                },
-                audio:false
-            });
+        if(stream){
+            stream.getTracks().forEach(t=>t.stop());
+        }
+
+        stream=await navigator.mediaDevices.getUserMedia({
+            video:{
+                facingMode:{ ideal:facingMode },
+                width:{ ideal:1920 },
+                height:{ ideal:1080 }
+            },
+            audio:false
+        });
 
         camera.srcObject=stream;
-
         camera.classList.remove("hidden");
+        document.getElementById("stopCameraBtn").classList.remove("hidden");
 
         setStatus("Camera ready.");
 
     }catch(e){
 
-        setStatus(
-            "Camera unavailable. Upload a picture instead."
-        );
-
+        setStatus("Camera unavailable. Upload a picture instead.");
     }
 }
 
 function stopCamera(){
 
     if(stream){
-
-        stream
-        .getTracks()
-        .forEach(t=>t.stop());
-
+        stream.getTracks().forEach(t=>t.stop());
         stream=null;
     }
 
     camera.classList.add("hidden");
+    document.getElementById("stopCameraBtn").classList.add("hidden");
+}
+
+function switchCamera(){
+
+    facingMode = facingMode==="environment" ? "user" : "environment";
+
+    if(stream){
+        startCamera();
+    }else{
+        setStatus(`Will use the ${facingMode==="environment"?"back":"front"} camera.`);
+    }
 }
 
 
 /* =====================================================
-   DRAW / ROTATE
+   DRAW / CAPTURE (with upscaling for small photos)
 ===================================================== */
 
-function drawImage(
-    source,
-    rotation=0,
-    mirror=false
-){
+function drawImage(source,rotation=0,mirror=false){
 
-    const canvas=
-        document.getElementById("canvas");
+    const canvas=document.getElementById("canvas");
 
-    const w=
-        source.videoWidth ||
-        source.naturalWidth ||
-        source.width;
+    let w=source.videoWidth || source.naturalWidth || source.width;
+    let h=source.videoHeight || source.naturalHeight || source.height;
 
-    const h=
-        source.videoHeight ||
-        source.naturalHeight ||
-        source.height;
+    // Upscale small images so OCR has more pixels to work with.
+    const targetLongSide=1500;
+    const longSide=Math.max(w,h);
+    let scale=1;
 
-    canvas.width=w;
-    canvas.height=h;
-
-    const ctx=
-        canvas.getContext("2d");
-
-    ctx.save();
-
-    ctx.translate(w/2,h/2);
-
-    ctx.rotate(
-        rotation*Math.PI/180
-    );
-
-    if(mirror){
-        ctx.scale(-1,1);
+    if(longSide < targetLongSide){
+        scale=Math.min(targetLongSide/longSide,3);
     }
 
-    ctx.drawImage(
-        source,
-        -w/2,
-        -h/2,
-        w,
-        h
-    );
+    canvas.width=Math.round(w*scale);
+    canvas.height=Math.round(h*scale);
 
+    const ctx=canvas.getContext("2d");
+    ctx.imageSmoothingEnabled=true;
+    ctx.imageSmoothingQuality="high";
+
+    ctx.save();
+    ctx.translate(canvas.width/2,canvas.height/2);
+    ctx.rotate(rotation*Math.PI/180);
+    if(mirror) ctx.scale(-1,1);
+    ctx.drawImage(source,-canvas.width/2,-canvas.height/2,canvas.width,canvas.height);
     ctx.restore();
 
     return canvas;
 }
 
-
 function captureImage(){
 
     if(!stream){
-
-        setStatus(
-            "Start the camera first."
-        );
-
+        setStatus("Start the camera first.");
         return;
     }
 
-    drawImage(
-        camera,
-        180,
-        false
-    );
-
+    drawImage(camera,180,false);
     showPreview();
-
-    setStatus(
-        "Captured. Ready to scan."
-    );
+    setStatus("Captured. Ready to scan.");
 }
 
 
 /* =====================================================
-   UPLOAD
+   UPLOAD + DRAG & DROP
 ===================================================== */
 
-document
-.getElementById("imageInput")
-.addEventListener("change",function(){
+function loadImageFile(file){
 
-    const file=this.files[0];
+    if(!file || !file.type.startsWith("image/")) return;
 
-    if(!file)return;
-
-    const reader=
-        new FileReader();
+    const reader=new FileReader();
 
     reader.onload=e=>{
 
-        const img=
-            new Image();
+        const img=new Image();
 
         img.onload=()=>{
-
-            drawImage(
-                img,
-                180,
-                false
-            );
-
+            drawImage(img,180,false);
             showPreview();
-
-            setStatus(
-                "Image loaded."
-            );
+            setStatus("Image loaded.");
         };
 
         img.src=e.target.result;
     };
 
     reader.readAsDataURL(file);
+}
+
+document.getElementById("imageInput").addEventListener("change",function(){
+    loadImageFile(this.files[0]);
+});
+
+const dropzone=document.getElementById("dropzone");
+
+["dragenter","dragover"].forEach(evt=>{
+    dropzone.addEventListener(evt,e=>{
+        e.preventDefault();
+        dropzone.classList.add("drag");
+    });
+});
+
+["dragleave","drop"].forEach(evt=>{
+    dropzone.addEventListener(evt,e=>{
+        e.preventDefault();
+        dropzone.classList.remove("drag");
+    });
+});
+
+dropzone.addEventListener("drop",e=>{
+    const file=e.dataTransfer.files && e.dataTransfer.files[0];
+    if(file) loadImageFile(file);
+});
+
+document.addEventListener("paste",e=>{
+    const items=e.clipboardData && e.clipboardData.items;
+    if(!items)return;
+    for(const item of items){
+        if(item.type.startsWith("image/")){
+            loadImageFile(item.getAsFile());
+            break;
+        }
+    }
 });
 
 
@@ -788,13 +1042,65 @@ document
 
 function showPreview(){
 
-    const canvas=
-        document.getElementById("canvas");
+    const canvas=document.getElementById("canvas");
 
-    document
-        .getElementById("preview")
-        .innerHTML=
-        `<img src="${canvas.toDataURL("image/png")}">`;
+    document.getElementById("preview").innerHTML=
+        `<img src="${canvas.toDataURL("image/png")}" alt="Captured Lunari photo">`;
+}
+
+function clearImage(){
+
+    const canvas=document.getElementById("canvas");
+    canvas.width=0;
+    canvas.height=0;
+
+    document.getElementById("preview").innerHTML="No image yet &mdash; capture or drop a photo here.";
+    document.getElementById("imageInput").value="";
+
+    setStatus("Cleared.");
+}
+
+
+/* =====================================================
+   OTSU THRESHOLD (computed per image, not guessed)
+===================================================== */
+
+function otsuThreshold(grayArray){
+
+    const hist=new Array(256).fill(0);
+
+    for(let i=0;i<grayArray.length;i++){
+        hist[grayArray[i]]++;
+    }
+
+    const total=grayArray.length;
+    let sum=0;
+    for(let t=0;t<256;t++) sum += t*hist[t];
+
+    let sumB=0,wB=0,varMax=0,threshold=127;
+
+    for(let t=0;t<256;t++){
+
+        wB += hist[t];
+        if(wB===0) continue;
+
+        const wF=total-wB;
+        if(wF===0) break;
+
+        sumB += t*hist[t];
+
+        const mB=sumB/wB;
+        const mF=(sum-sumB)/wF;
+
+        const between=wB*wF*(mB-mF)*(mB-mF);
+
+        if(between>varMax){
+            varMax=between;
+            threshold=t;
+        }
+    }
+
+    return threshold;
 }
 
 
@@ -802,15 +1108,9 @@ function showPreview(){
    IMAGE VARIANTS
 ===================================================== */
 
-function variant(
-    source,
-    rotation,
-    mirror,
-    filter
-){
+function variant(source,rotation,mirror,filter){
 
-    const canvas=
-        document.createElement("canvas");
+    const canvas=document.createElement("canvas");
 
     const w=source.width;
     const h=source.height;
@@ -818,143 +1118,62 @@ function variant(
     canvas.width=w;
     canvas.height=h;
 
-    const ctx=
-        canvas.getContext("2d");
+    const ctx=canvas.getContext("2d");
 
     ctx.save();
-
     ctx.translate(w/2,h/2);
-
-    ctx.rotate(
-        rotation*Math.PI/180
-    );
-
-    if(mirror){
-        ctx.scale(-1,1);
-    }
-
-    ctx.drawImage(
-        source,
-        -w/2,
-        -h/2,
-        w,
-        h
-    );
-
+    ctx.rotate(rotation*Math.PI/180);
+    if(mirror) ctx.scale(-1,1);
+    ctx.drawImage(source,-w/2,-h/2,w,h);
     ctx.restore();
 
-
-    const data=
-        ctx.getImageData(
-            0,0,w,h
-        );
-
+    const data=ctx.getImageData(0,0,w,h);
     const p=data.data;
+    const n=p.length/4;
+    const gray=new Uint8ClampedArray(n);
 
-
-    for(
-        let i=0;
-        i<p.length;
-        i+=4
-    ){
-
-        let r=p[i];
-        let g=p[i+1];
-        let b=p[i+2];
-
-        let gray=
-            .299*r+
-            .587*g+
-            .114*b;
-
-
-        if(filter==="gray"){
-
-            r=g=b=gray;
-
-        }
-
-
-        if(filter==="contrast"){
-
-            gray=
-                (gray-128)*2.5+128;
-
-            gray=
-                Math.max(
-                    0,
-                    Math.min(
-                        255,
-                        gray
-                    )
-                );
-
-            r=g=b=gray;
-        }
-
-
-        if(filter==="threshold"){
-
-            const v=
-                gray<145?0:255;
-
-            r=g=b=v;
-        }
-
-
-        if(filter==="threshold2"){
-
-            const v=
-                gray<190?0:255;
-
-            r=g=b=v;
-        }
-
-
-        if(filter==="invert"){
-
-            gray=255-gray;
-
-            r=g=b=gray;
-        }
-
-
-        if(filter==="soft"){
-
-            gray=
-                (gray-128)*1.5+128;
-
-            gray=
-                Math.max(
-                    0,
-                    Math.min(
-                        255,
-                        gray
-                    )
-                );
-
-            r=g=b=gray;
-        }
-
-
-        p[i]=r;
-        p[i+1]=g;
-        p[i+2]=b;
+    for(let i=0,j=0;i<p.length;i+=4,j++){
+        gray[j]=Math.round(.299*p[i]+.587*p[i+1]+.114*p[i+2]);
     }
 
+    let otsu=null;
 
-    ctx.putImageData(
-        data,
-        0,
-        0
-    );
+    if(filter==="otsu" || filter==="otsu-invert"){
+        otsu=otsuThreshold(gray);
+    }
+
+    for(let i=0,j=0;i<p.length;i+=4,j++){
+
+        let g=gray[j];
+        let v=g;
+
+        if(filter==="gray"){
+            v=g;
+        }
+
+        if(filter==="contrast"){
+            v=Math.max(0,Math.min(255,(g-128)*2.2+128));
+        }
+
+        if(filter==="otsu"){
+            v = g < otsu ? 0 : 255;
+        }
+
+        if(filter==="otsu-invert"){
+            v = g < otsu ? 255 : 0;
+        }
+
+        p[i]=p[i+1]=p[i+2]=v;
+    }
+
+    ctx.putImageData(data,0,0);
 
     return canvas;
 }
 
 
 /* =====================================================
-   OCR CLEANUP
+   OCR CLEANUP / CORRECTIONS
 ===================================================== */
 
 function clean(text){
@@ -963,27 +1182,15 @@ function clean(text){
         .toUpperCase()
         .replace(/\r/g," ")
         .replace(/\n+/g," ")
-        .replace(
-            /[^A-Z0-9 .,!?'-]/g,
-            ""
-        )
-        .replace(
-            /\s+/g,
-            " "
-        )
+        .replace(/[^A-Z0-9 .,!?'-]/g,"")
+        .replace(/\s+/g," ")
         .trim();
 }
-
-
-/* =====================================================
-   OCR CORRECTIONS
-===================================================== */
 
 function correct(text){
 
     return text
         .toUpperCase()
-
         .replace(/0/g,"O")
         .replace(/1/g,"I")
         .replace(/5/g,"S")
@@ -991,48 +1198,20 @@ function correct(text){
         .replace(/\|/g,"I");
 }
 
-
-/* =====================================================
-   REVERSE
-===================================================== */
-
 function reverseCharacters(text){
-
-    return text
-        .split("")
-        .reverse()
-        .join("");
+    return text.split("").reverse().join("");
 }
-
 
 function reverseWords(text){
-
-    return text
-        .split(/\s+/)
-        .map(
-            word=>
-                reverseCharacters(word)
-        )
-        .join(" ");
+    return text.split(/\s+/).map(reverseCharacters).join(" ");
 }
-
-
-/* =====================================================
-   DECODE
-===================================================== */
 
 function decode(text){
 
     let result="";
-
     for(const c of text){
-
-        result +=
-            decodeMap[c] ||
-            c;
-
+        result += decodeMap[c] || c;
     }
-
     return result;
 }
 
@@ -1042,125 +1221,72 @@ function decode(text){
 ===================================================== */
 
 const words=new Set([
-
-"THE","AND","YOU","THAT","THIS","HELLO",
-"WORLD","SECRET","MESSAGE","LUNARI","CODE",
-"IS","ARE","TO","OF","IN","IT","FOR","WITH",
-"ON","AT","AS","BE","HAVE","HAS","WAS","WERE",
-"YOUR","MY","ME","WE","CAN","READ","WRITE",
-"OPEN","CLOSE","YES","NO","NOT","ONE","TWO",
-"THREE","GO","SEE","LOOK","HERE","THERE",
-"COME","HELP","KEY","CARD","LANGUAGE",
-"GOOD","BAD","THANK","THANKS","PLEASE",
-"WHAT","WHEN","WHERE","WHO","WHY","HOW",
-"SECRET","HIDDEN","DOOR","MOON","LIGHT"
-
+"THE","AND","YOU","THAT","THIS","HELLO","WORLD","SECRET","MESSAGE",
+"LUNARI","CODE","IS","ARE","TO","OF","IN","IT","FOR","WITH","ON","AT",
+"AS","BE","HAVE","HAS","WAS","WERE","YOUR","MY","ME","WE","CAN","READ",
+"WRITE","OPEN","CLOSE","YES","NO","NOT","ONE","TWO","THREE","FOUR",
+"FIVE","GO","SEE","LOOK","HERE","THERE","COME","HELP","KEY","CARD",
+"LANGUAGE","GOOD","BAD","THANK","THANKS","PLEASE","WHAT","WHEN",
+"WHERE","WHO","WHY","HOW","HIDDEN","DOOR","MOON","LIGHT","NIGHT",
+"STAR","STARS","FRIEND","FRIENDS","LOVE","LIKE","WANT","NEED","WILL",
+"WOULD","COULD","SHOULD","ALL","ANY","BUT","OR","IF","SO","JUST",
+"NOW","THEN","OUR","THEIR","HIS","HER","THEY","THEM","FROM","BY",
+"ABOUT","OVER","AFTER","BEFORE","TODAY","TOMORROW","TIME","NAME",
+"HOUSE","SCHOOL","BOOK","GAME","PLAY","TALK","MEET","MEETING",
+"TONIGHT","MIDNIGHT","SHH","QUIET","TRUE","REAL","MAGIC","SPELL",
+"CLUB","TEAM","MISSION","PLAN","SAFE","DANGER","WATCH","OUT",
+"BIRTHDAY","PARTY","GIFT","SURPRISE"
 ]);
 
-
 const pairs=[
-"TH","HE","IN","ER","AN","RE","ON","AT",
-"EN","ND","TI","ES","OR","TE","OF","ED",
-"IS","IT","AL","AR","ST","TO","NT","NG",
-"SE","HA","AS","OU","IO","LE","VE","CO",
-"ME","DE","HI","RI","RO","IC","NE","EA"
+"TH","HE","IN","ER","AN","RE","ON","AT","EN","ND","TI","ES","OR",
+"TE","OF","ED","IS","IT","AL","AR","ST","TO","NT","NG","SE","HA",
+"AS","OU","IO","LE","VE","CO","ME","DE","HI","RI","RO","IC","NE","EA"
 ];
-
 
 function scoreEnglish(text){
 
-    const cleanText=
-        text
-        .toUpperCase()
-        .replace(/[^A-Z ]/g," ");
-
-    const ws=
-        cleanText
-        .split(/\s+/)
-        .filter(Boolean);
+    const cleanText=text.toUpperCase().replace(/[^A-Z ]/g," ");
+    const ws=cleanText.split(/\s+/).filter(Boolean);
 
     let score=0;
 
-
     for(const word of ws){
 
-        if(words.has(word)){
-            score+=30;
-        }
+        if(words.has(word)) score += 30;
 
-        if(
-            word.length>=2 &&
-            word.length<=15
-        ){
-            score+=1;
-        }
+        if(word.length>=2 && word.length<=15) score += 1;
     }
-
 
     for(const pair of pairs){
 
         let index=0;
 
-        while(
-            (index=
-                cleanText.indexOf(
-                    pair,
-                    index
-                )
-            )!==-1
-        ){
-
-            score+=1;
+        while((index=cleanText.indexOf(pair,index))!==-1){
+            score += 1;
             index++;
-
         }
     }
 
-
-    const letters=
-        cleanText
-        .replace(/[^A-Z]/g,"");
-
+    const letters=cleanText.replace(/[^A-Z]/g,"");
 
     if(letters.length>3){
 
-        const vowels=
-            letters.match(/[AEIOU]/g);
+        const vowels=letters.match(/[AEIOU]/g);
 
         if(vowels){
 
-            const ratio=
-                vowels.length/
-                letters.length;
+            const ratio=vowels.length/letters.length;
 
-            if(
-                ratio>.20 &&
-                ratio<.60
-            ){
-                score+=8;
-            }
+            if(ratio>.20 && ratio<.60) score += 8;
         }
     }
 
-
-    /*
-       Penalize very unlikely English
-       letter combinations.
-    */
-
-    const bad=[
-        "QW","QG","QZ","JQ",
-        "QJ","ZX","ZQ","VQ",
-        "JJ","QQ","XX"
-    ];
+    const bad=["QW","QG","QZ","JQ","QJ","ZX","ZQ","VQ","JJ","QQ","XX"];
 
     for(const pair of bad){
-
-        if(cleanText.includes(pair)){
-            score-=5;
-        }
+        if(cleanText.includes(pair)) score -= 5;
     }
-
 
     return score;
 }
@@ -1179,61 +1305,33 @@ function candidates(text){
     function add(value,reason){
 
         value=clean(value);
-
-        if(!value)return;
+        if(!value) return;
 
         const fixed=correct(value);
 
         const forms=[
             [value,reason],
             [fixed,reason+" + correction"],
-            [
-                reverseCharacters(value),
-                reason+" + reverse"
-            ],
-            [
-                reverseCharacters(fixed),
-                reason+" + correction + reverse"
-            ],
-            [
-                reverseWords(value),
-                reason+" + word reverse"
-            ],
-            [
-                reverseWords(fixed),
-                reason+" + correction + word reverse"
-            ]
+            [reverseCharacters(value),reason+" + reverse"],
+            [reverseCharacters(fixed),reason+" + correction + reverse"],
+            [reverseWords(value),reason+" + word reverse"],
+            [reverseWords(fixed),reason+" + correction + word reverse"]
         ];
-
 
         for(const [lunariText,why] of forms){
 
-            const english=
-                decode(lunariText);
+            const english=decode(lunariText);
 
             list.push({
-
-                lunari:
-                    lunariText,
-
+                lunari:lunariText,
                 english,
-
                 reason:why,
-
-                score:
-                    scoreEnglish(
-                        english
-                    )
-
+                score:scoreEnglish(english)
             });
         }
     }
 
-
-    add(
-        text,
-        "OCR"
-    );
+    add(text,"OCR");
 
     return list;
 }
@@ -1243,391 +1341,269 @@ function candidates(text){
    SMART SCANNER
 ===================================================== */
 
-async function smartScan(){
+let scanCancelled=false;
+let tesseractWorker=null;
 
-    const source=
-        document.getElementById("canvas");
+function setScanningUI(active){
 
-    if(
-        !source.width ||
-        !source.height
-    ){
+    document.getElementById("scanBtn").disabled=active;
+    document.getElementById("cancelBtn").classList.toggle("hidden",!active);
+}
 
-        setStatus(
-            "Capture or upload an image first."
-        );
+function cancelScan(){
+    scanCancelled=true;
+    setStatus("Stopping…");
+}
 
-        return;
-    }
+async function ocrPass(worker,canvasEl,psm){
 
+    await worker.setParameters({ tessedit_pageseg_mode:String(psm) });
+    const result=await worker.recognize(canvasEl);
+    return result.data;
+}
 
-    setStatus(
-        "Building recognition attempts..."
-    );
+function updateLiveBest(finalResults){
 
+    if(!finalResults.length) return;
 
-    const variants=[];
+    const best=finalResults[0];
 
-    const rotations=[
-        0,
-        180
-    ];
+    document.getElementById("best").textContent=best.english;
+    document.getElementById("confidence").textContent=
+        `${best.votes} agreeing attempt${best.votes===1?"":"s"} • ${best.reason} • score ${Math.round(best.finalScore)}`;
+}
 
-    const filters=[
-        "gray",
-        "contrast",
-        "threshold",
-        "threshold2",
-        "invert",
-        "soft"
-    ];
+function rankResults(all){
 
+    const groups=new Map();
 
-    for(const rotation of rotations){
+    for(const item of all){
 
-        for(const filter of filters){
+        const key=item.english.trim();
+        if(!key) continue;
 
-            variants.push({
+        if(!groups.has(key)){
+            groups.set(key,{ ...item,votes:0 });
+        }
 
-                canvas:
-                    variant(
-                        source,
-                        rotation,
-                        false,
-                        filter
-                    ),
-
-                name:
-                    `${rotation}° ${filter}`
-
-            });
-
-
-            variants.push({
-
-                canvas:
-                    variant(
-                        source,
-                        rotation,
-                        true,
-                        filter
-                    ),
-
-                name:
-                    `${rotation}° mirror ${filter}`
-
-            });
-
+        const g=groups.get(key);
+        g.votes++;
+        if(item.score>g.score){
+            g.score=item.score;
+            g.reason=item.reason;
+            g.lunari=item.lunari;
         }
     }
 
+    return [...groups.values()]
+        .map(item=>{
+            item.finalScore=item.score + item.votes*12;
+            return item;
+        })
+        .sort((a,b)=>b.finalScore-a.finalScore);
+}
 
-    /*
-       Tesseract page layouts.
+async function getWorker(){
 
-       6  = block of text
-       7  = single line
-       8  = single word
-       11 = sparse text
-       12 = sparse text + OSD
-       13 = raw line
-    */
+    if(tesseractWorker) return tesseractWorker;
 
-    const modes=[
-        6,
-        7,
-        8,
-        11,
-        12,
-        13
-    ];
+    tesseractWorker=await Tesseract.createWorker("eng",1,{
+        logger:m=>{
+            if(m.status==="recognizing text"){
+                // fine-grained progress handled by caller
+            }
+        }
+    });
 
+    await tesseractWorker.setParameters({
+        tessedit_char_whitelist:
+            "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 .,!?'-",
+        preserve_interword_spaces:"1"
+    });
 
-    const all=[];
+    return tesseractWorker;
+}
+
+async function smartScan(){
+
+    const source=document.getElementById("canvas");
+
+    if(!source.width || !source.height){
+        setStatus("Capture or upload an image first.");
+        return;
+    }
+
+    scanCancelled=false;
+    setScanningUI(true);
+    document.getElementById("bar").style.width="0%";
 
     let worker=null;
-
+    const all=[];
 
     try{
 
-        worker=
-            await Tesseract.createWorker(
-                "eng",
-                1,
-                {
-                    logger:m=>{
+        worker=await getWorker();
 
-                        if(
-                            m.status===
-                            "recognizing text"
-                        ){
+        setStatus("Guessing orientation…");
 
-                            document
-                            .getElementById("bar")
-                            .style
-                            .width=
-                                Math.round(
-                                    m.progress*100
-                                )+"%";
-                        }
-                    }
-                }
-            );
+        // ---- Orientation pre-pass: 2 cheap OCR calls decide
+        // whether the photo is right-side-up or upside-down,
+        // instead of blindly testing both the whole way through.
 
+        const grayUpright=variant(source,0,false,"gray");
+        const grayFlipped=variant(source,180,false,"gray");
 
-        await worker.setParameters({
+        const preUpright=await ocrPass(worker,grayUpright,6);
+        const preFlipped=await ocrPass(worker,grayFlipped,6);
 
-            tessedit_char_whitelist:
-                "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 .,!?'-",
+        const scoreUpright=Math.max(
+            ...candidates(clean(preUpright.text)).map(c=>c.score),
+            -999
+        );
+        const scoreFlipped=Math.max(
+            ...candidates(clean(preFlipped.text)).map(c=>c.score),
+            -999
+        );
 
-            preserve_interword_spaces:"1"
+        let rotations=[0,180];
 
-        });
+        if(scoreUpright > scoreFlipped + 10){
+            rotations=[0];
+        }else if(scoreFlipped > scoreUpright + 10){
+            rotations=[180];
+        }
+        // otherwise ambiguous — keep testing both
 
+        setStatus(`Testing ${rotations.length===1?"one":"both"} orientation(s)…`);
 
-        const total=
-            variants.length*
-            modes.length;
+        // ---- Build the focused variant set
 
+        const filters=["gray","otsu","otsu-invert","contrast"];
+        const psmModes=[6,7,11];
+
+        const variants=[];
+
+        for(const rotation of rotations){
+            for(const filter of filters){
+                variants.push({ canvas:variant(source,rotation,false,filter),name:`${rotation}° ${filter}` });
+                variants.push({ canvas:variant(source,rotation,true,filter),name:`${rotation}° mirror ${filter}` });
+            }
+        }
+
+        const total=variants.length*psmModes.length;
         let count=0;
 
+        const STRONG_SCORE=70;
+        const STRONG_VOTES=3;
 
+        outer:
         for(const v of variants){
 
-            for(const mode of modes){
+            for(const psm of psmModes){
+
+                if(scanCancelled){
+                    setStatus("Stopped.");
+                    break outer;
+                }
 
                 try{
 
-                    await worker.setParameters({
-
-                        tessedit_pageseg_mode:
-                            String(mode)
-
-                    });
-
-
-                    const result=
-                        await worker.recognize(
-                            v.canvas
-                        );
-
-
-                    const text=
-                        clean(
-                            result.data.text
-                        );
-
+                    const data=await ocrPass(worker,v.canvas,psm);
+                    const text=clean(data.text);
 
                     if(text){
 
-                        const found=
-                            candidates(text);
-
+                        const found=candidates(text);
 
                         for(const c of found){
 
-                            c.reason=
-                                `${v.name}, PSM ${mode}, ${c.reason}`;
+                            c.reason=`${v.name}, PSM ${psm}, ${c.reason}`;
 
-                            /*
-                               Small bonus for longer
-                               readable results.
-                            */
+                            c.score += Math.min(c.english.replace(/[^A-Z]/g,"").length,20);
 
-                            c.score +=
-                                Math.min(
-                                    c.english
-                                        .replace(
-                                            /[^A-Z]/g,
-                                            ""
-                                        )
-                                        .length,
-                                    20
-                                );
+                            if(typeof data.confidence==="number"){
+                                c.score += data.confidence/12;
+                            }
 
                             all.push(c);
                         }
                     }
 
                 }catch(e){
-
-                    console.warn(
-                        "Attempt failed",
-                        e
-                    );
+                    console.warn("Attempt failed",e);
                 }
-
 
                 count++;
 
-                setStatus(
-                    `Trying ${count} / ${total} recognition passes...`
-                );
+                document.getElementById("bar").style.width=Math.round(count/total*100)+"%";
 
-                document
-                    .getElementById("bar")
-                    .style
-                    .width=
-                    Math.round(
-                        count/total*100
-                    )+"%";
-            }
-        }
+                if(count % 4===0 || count===total){
 
+                    const ranked=rankResults(all);
+                    updateLiveBest(ranked);
 
-        await worker.terminate();
-        worker=null;
+                    setStatus(`Trying ${count} / ${total} recognition passes…`);
 
-
-        /*
-           Group identical English results.
-
-           If many independent OCR passes agree,
-           increase their score.
-        */
-
-        const groups=new Map();
-
-        for(const item of all){
-
-            const key=
-                item.english
-                .trim();
-
-            if(!key)continue;
-
-            if(!groups.has(key)){
-
-                groups.set(
-                    key,
-                    {
-                        ...item,
-                        votes:0
+                    // Early exit once we have a confident, well-agreed result.
+                    if(ranked.length && ranked[0].score>=STRONG_SCORE && ranked[0].votes>=STRONG_VOTES){
+                        setStatus("Strong match found — stopping early.");
+                        break outer;
                     }
-                );
+                }
             }
-
-            groups.get(key).votes++;
         }
 
-
-        const finalResults=
-            [...groups.values()]
-            .map(item=>{
-
-                item.finalScore=
-                    item.score+
-                    item.votes*12;
-
-                return item;
-
-            })
-            .sort(
-                (a,b)=>
-                    b.finalScore-
-                    a.finalScore
-            );
-
+        const finalResults=rankResults(all);
 
         if(!finalResults.length){
-
-            setStatus(
-                "Nothing recognizable was found."
-            );
-
+            setStatus("Nothing recognizable was found. Try a clearer or brighter photo.");
             return;
         }
 
+        const best=finalResults[0];
 
-        const best=
-            finalResults[0];
+        document.getElementById("ocrText").value=best.lunari;
+        document.getElementById("englishResult").textContent=best.english;
 
+        let html=`<strong>${escapeHTML(best.english)}</strong>`;
 
-        document
-            .getElementById("best")
-            .textContent=
-            best.english;
-
-
-        document
-            .getElementById("ocrText")
-            .value=
-            best.lunari;
-
-
-        document
-            .getElementById("englishResult")
-            .textContent=
-            best.english;
-
-
-        document
-            .getElementById("confidence")
-            .textContent=
-            `${best.votes} independent OCR attempts agreed • `+
-            `${best.reason} • score ${best.finalScore}`;
-
-
-        /*
-           Show alternatives.
-        */
-
-        let html=
-            `<strong>${escapeHTML(
-                best.english
-            )}</strong>`;
-
-
-        for(
-            const item
-            of finalResults.slice(1,6)
-        ){
-
+        for(const item of finalResults.slice(1,6)){
             html+=`
-                <div class="alt">
-                    ${escapeHTML(
-                        item.english
-                    )}
+                <div class="alt" onclick="useAlt('${encodeURIComponent(item.lunari)}')">
+                    ${escapeHTML(item.english)}
                     <br>
-                    <small>
-                    ${item.votes}
-                    agreeing attempts •
-                    ${escapeHTML(
-                        item.reason
-                    )}
-                    </small>
+                    <small>${item.votes} agreeing attempt${item.votes===1?"":"s"} • ${escapeHTML(item.reason)}</small>
                 </div>
             `;
         }
 
+        document.getElementById("best").innerHTML=html;
 
-        document
-            .getElementById("best")
-            .innerHTML=
-            html;
+        document.getElementById("confidence").textContent=
+            `${best.votes} agreeing attempt${best.votes===1?"":"s"} • ${best.reason} • score ${Math.round(best.finalScore)}`;
 
-
-        setStatus(
-            `Finished. Tested ${total} OCR configurations.`
+        setStatus(scanCancelled
+            ? `Stopped early. Tested ${count} of ${total} configurations.`
+            : `Finished. Tested ${count} of ${total} configurations.`
         );
-
 
     }catch(error){
 
         console.error(error);
+        setStatus("Scanner failed. Try a clearer image, or reload the page.");
 
-        if(worker){
+    }finally{
 
-            try{
-                await worker.terminate();
-            }catch(e){}
-
-        }
-
-        setStatus(
-            "Scanner failed. Try a clearer image."
-        );
+        setScanningUI(false);
     }
+}
+
+function useAlt(encodedLunari){
+
+    const lunariText=decodeURIComponent(encodedLunari);
+    document.getElementById("ocrText").value=lunariText;
+    document.getElementById("englishResult").textContent=decode(lunariText);
+    document.getElementById("best").textContent=decode(lunariText);
 }
 
 
@@ -1637,31 +1613,14 @@ async function smartScan(){
 
 function decodeOCR(){
 
-    const input=
-        document
-        .getElementById("ocrText")
-        .value
-        .toUpperCase();
-
-    document
-        .getElementById("englishResult")
-        .textContent=
-        decode(input);
+    const input=document.getElementById("ocrText").value.toUpperCase();
+    document.getElementById("englishResult").textContent=decode(input);
 }
-
 
 function decodeManual(){
 
-    const input=
-        document
-        .getElementById("manual")
-        .value
-        .toUpperCase();
-
-    document
-        .getElementById("manualResult")
-        .textContent=
-        decode(input);
+    const input=document.getElementById("manual").value.toUpperCase();
+    document.getElementById("manualResult").textContent=decode(input);
 }
 
 
@@ -1670,12 +1629,8 @@ function decodeManual(){
 ===================================================== */
 
 function setStatus(text){
-
-    document
-        .getElementById("status")
-        .textContent=text;
+    document.getElementById("status").textContent=text;
 }
-
 
 function escapeHTML(text){
 
@@ -1686,6 +1641,12 @@ function escapeHTML(text){
         .replace(/"/g,"&quot;")
         .replace(/'/g,"&#039;");
 }
+
+window.addEventListener("beforeunload",()=>{
+    if(tesseractWorker){
+        try{ tesseractWorker.terminate(); }catch(e){}
+    }
+});
 
 </script>
 
